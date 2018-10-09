@@ -43,75 +43,16 @@
                  * Handles the sign in button press.
                  */
             function toggleSignIn() {
+		console.log("hola");
                 if (firebase.auth().currentUser) {
                     // [START signout]
+		console.log("log out");
                     firebase.auth().signOut();
+		    window.location ="/testbed";
                     // [END signout]
-                } else {
-                    var email = document.getElementById('email').value;
-                    var password = document.getElementById('password').value;
-                    if (email.length < 4) {
-                        alert('Please enter an email address.');
-                        return;
-                    }
-                    if (password.length < 4) {
-                        alert('Please enter a password.');
-                        return;
-                    }
-                    // Sign in with email and pass.
-                    // [START authwithemail]
-                    firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                                                                                      // Handle Errors here.
-                                                                                      var errorCode = error.code;
-                                                                                      var errorMessage = error.message;
-                                                                                      // [START_EXCLUDE]
-                                                                                      if (errorCode === 'auth/wrong-password') {
-                                                                                      alert('Wrong password.');
-                                                                                      } else {
-                                                                                      alert(errorMessage);
-                                                                                      }
-                                                                                      console.log(error);
-                                                                                      document.getElementById('quickstart-sign-in').disabled = false;
-                                                                                      // [END_EXCLUDE]
-                                                                                      });
-                                                                                      // [END authwithemail]
-                }
-                document.getElementById('quickstart-sign-in').disabled = true;
+                } 
             }
-            
-            /**
-             * Handles the sign up button press.
-             */
-            function handleSignUp() {
-                var email = document.getElementById('email').value;
-                var password = document.getElementById('password').value;
-                if (email.length < 4) {
-                    alert('Please enter an email address.');
-                    return;
-                }
-                if (password.length < 4) {
-                    alert('Please enter a password.');
-                    return;
-                }
-                // Sign in with email and pass.
-                // [START createwithemail]
-                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                                                                                      // Handle Errors here.
-                                                                                      var errorCode = error.code;
-                                                                                      var errorMessage = error.message;
-                                                                                      // [START_EXCLUDE]
-                                                                                      if (errorCode == 'auth/weak-password') {
-                                                                                      alert('The password is too weak.');
-                                                                                      } else {
-                                                                                      alert(errorMessage);
-                                                                                      }
-                                                                                      console.log(error);
-                                                                                      // [END_EXCLUDE]
-                                                                                      });
-                                                                                      // [END createwithemail]
-            }
-            
-           
+
             /**
              * initApp handles setting up UI event listeners and registering Firebase auth listeners:
              *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -120,25 +61,17 @@
             function initApp() {
                 // Listening for auth state changes.
                 // [START authstatelistener]
+		console.log("init");
                 firebase.auth().onAuthStateChanged(function(user) {
-      
+                           			   console.log("init2");
                                                    if (user) {
-						   window.location = "/testbed/console"
-                                                   // [END_EXCLUDE]
-                                                   } else {
-                     
-                                                   document.getElementById('quickstart-sign-in').disabled = false;
-                                                   // [END_EXCLUDE]
+                                                      document.getElementById('log-out').addEventListener('click', toggleSignIn, false);
 						   }
                                                    });
                                                    // [END authstatelistener]
                                                    
-                                                   document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-                                                   document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-                                                   //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-                                                   //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
-						   console.log("move");
-						   
+
+                                               
             }
             
             window.onload = function() {
@@ -346,49 +279,27 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
 
     
 <!-- Intro -->
-<section class="section section--fullpage intro">
+<section class="steps section section--blue section--fullpage">
     <div class="container-fluid">
-        <div class="col-group">
-            <div class="col-8 col-lg-4">
-                <div id="intro-animation-container" class="intro__animation intro__animation--main">
-                    <canvas id="intro-animation" resize></canvas>
-                </div>
-            </div>
-            <div class="col-8 col-lg-4">
-                <div class="intro__content">
-                    <div class="intro__text">
-                        <h1 class="h1 intro__h1">
-                            <span>Join our testnet now</span>
-                        </h1>
-                        <h3 class="h3 h3--margin">
-                            Login
-                        </h3>
-                        <span>Username or email address</span>
-                        <br>
-                        <input  type="text" id="email" name="email" placeholder="Email"/>
-                        &nbsp;&nbsp;&nbsp;
-                        <br><br>
-                        <span>Password</span>
-                        <br>
-                        
-                        <input type="password" id="password" name="password" placeholder="Password"/>
-                        <br/><br/>
-                       <!-- <a href="/faq" class="button" data-text="See all frequently asked questions"><span>Log in</span></a>
-                        <button disabled class="button" id="quickstart-sign-in" name="signin">Log In</button>
-                        &nbsp;&nbsp;&nbsp;
-                        <button class="button" id="quickstart-sign-up" name="signup">Sign Up</button>
-                        &nbsp;&nbsp;&nbsp;-->
-                        <!-- Container where we'll display the user details -->
-			<button disabled class="button" id="quickstart-sign-in" name="signin">Sign In</button>
-			  &nbsp;&nbsp;&nbsp;
-			  <button class="button" id="quickstart-sign-up" name="signup">Sign Up</button>
+         <div class="col-group section__container">
+            <div class="section__unit section__unit--left col-8 col-lg-4">
+                <div class="section__unit-content">
+              	<br/>
+		<br/>
 
-        <div class="quickstart-user-details-container">
-            Logging in...
-          </div>
-                    </div>
- 
+                    <dl class="list list--links">
+                        <dt><a href="">Videos</a></dt>
+                        <dd></dd>
+                        <dt><a href="">Devices</a></dt>
+                        <dd></dd>
+                        <dt><a href="">Reports</a></dt>
+                        <dd></dd>
+                    </dl>
                 </div>
+                <button class="button" id="log-out"><span>Log out</span></a>
+            </div>
+            <div class="section__unit section__unit--right col-8 col-lg-4">
+             
             </div>
         </div>
     </div>
