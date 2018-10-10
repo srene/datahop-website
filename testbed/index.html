@@ -123,6 +123,7 @@
                 firebase.auth().onAuthStateChanged(function(user) {
       
                                                    if (user) {
+						   document.getElementById("log-in").hidden = false;
 						   window.location = "/testbed/console"
                                                    // [END_EXCLUDE]
                                                    } else {
@@ -382,8 +383,8 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
 			<button disabled class="button" id="quickstart-sign-in" name="signin">Sign In</button>
 			  &nbsp;&nbsp;&nbsp;
 			  <button class="button" id="quickstart-sign-up" name="signup">Sign Up</button>
-
-        <div class="quickstart-user-details-container">
+		<br></br>
+        <div class="quickstart-user-details-container" id="log-in" hidden>
             Logging in...
           </div>
                     </div>
