@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8" />
     <title>Home | DataHop</title>
 
@@ -28,100 +29,9 @@
     <meta property="og:url" content="">
     <meta property="og:site_name" content="DataHop">
 
-            <link href="/assets/0dff50c0bc4cd857673761897820ea55.css" type="text/css" rel="stylesheet" />
-
-            <!-- Import and configure the Firebase SDK -->
-            <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-            <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-            <script src="/__/firebase/5.5.2/firebase-app.js"></script>
-            <script src="/__/firebase/5.5.2/firebase-auth.js"></script>
-            <script src="/__/firebase/init.js"></script>
-            
-            <script type="text/javascript">
-                
-	    function handleFileSelect(evt) {
-	      evt.stopPropagation();
-	      evt.preventDefault();
-	      var file = evt.target.files[0];
-
-	      var metadata = {
-		'contentType': file.type
-	      };
-
-	      // Push to child path.
-	      // [START oncomplete]
-	      storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
-		console.log('Uploaded', snapshot.totalBytes, 'bytes.');
-		console.log('File metadata:', snapshot.metadata);
-		// Let's get a download URL for the file.
-		snapshot.ref.getDownloadURL().then(function(url) {
-		  console.log('File available at', url);
-		  // [START_EXCLUDE]
-		  document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
-		  // [END_EXCLUDE]
-		});
-	      }).catch(function(error) {
-		// [START onfailure]
-		console.error('Upload failed:', error);
-		// [END onfailure]
-	      });
-	      // [END oncomplete]
-	    }
-                /**
-                 * Handles the sign in button press.
-                 */
-            function toggleSignIn() {
-
-                if (firebase.auth().currentUser) {
-                    // [START signout]
-
-                    firebase.auth().signOut();
-		    window.location ="/testbed";
-                    // [END signout]
-                } 
-            }
-
-            /**
-             * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-             *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-             *    out, and that is where we update the UI.
-             */
-            function initApp() {
-                // Listening for auth state changes.
-                // [START authstatelistener]
-		console.log("init");
-                firebase.auth().onAuthStateChanged(function(user) {
-
-                                                   if (user) {
-                                                  document.getElementById('log-out').addEventListener('click', toggleSignIn, false);
-						  var displayName = user.displayName;
-						  var email = user.email;
-						  var emailVerified = user.emailVerified;
-						  var photoURL = user.photoURL;
-						  var isAnonymous = user.isAnonymous;
-						  var uid = user.uid;
-						  var providerData = user.providerData;
-						  // [START_EXCLUDE]
-						  document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-
-						  document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-					
-
-						   } else {
-
-						      window.location ="/testbed";
-						   }
-                                                   });
-                                                   // [END authstatelistener]
-                                                   
-
-                                               
-            }
-            
-            window.onload = function() {
-                initApp();
-            };
-            </script>
+    <link href="/assets/0dff50c0bc4cd857673761897820ea55.css" type="text/css" rel="stylesheet" />
+    <script src="bquery.js" type="text/javascript" ></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body class="home">
 
@@ -326,38 +236,77 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
 <section class="steps section section--blue section--fullpage">
     <div class="container-fluid">
          <div class="col-group section__container">
-            <div class="section__unit  col-8 col-lg-4">
+            <div class="section__unit section__unit--one-third col-lg-2">
                 <div class="section__unit-content">
               	<br/>
 		<br/>
 
                     <dl class="list list--links">
-                        <dt><a href="">Videos</a></dt>
+                        <dt><a href="javascript:showSection(videoListSection);">Videos</a></dt>
                         <dd></dd>
-                        <dt><a href="">Devices</a></dt>
+                        <dt><a href="javascript:showSection(deviceListSection);">Devices</a></dt>
                         <dd></dd>
-                        <dt><a href="">Reports</a></dt>
+                        <dt><a href="javascript:showSection(reportListSection);">Reports</a></dt>
                         <dd></dd>
                     </dl>
                 <button class="button" id="log-out"><span>Log out</span></a>
                 </div>
 
             </div>
+
             <div class="col-8 col-lg-4">
-                <div class="section__unit-content">
-	     		<p>Select a file below. When it is uploaded, a link will be displayed to the uploaded file.</p>
-		    <h6>Choose File</h6>
-		    <input type="file" id="file" name="file"/>
-		    <h6>File URL:</h6>
-		    <span id="linkbox"></span>
-                       <div class="quickstart-user-details-container">
-            		Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-            		<div>Firebase auth <code>currentUser</code> object value:</div>
-            			<pre><code id="quickstart-account-details">null</code></pre>
-          		</div>
+    		<section class="mdl-grid content"  id="video-list" style="display:none">
+                	<div class="section__unit-content">
+		 	Videos
+                	</div>
+		</section>
+                <div class="section__unit-content" id="device-list" style="display:none">
+		Devices
                 </div>
-            </div>
-        </div>
+
+                <div class="section__unit-content" id="report-list" style="display:none">
+		<div class="row">
+                    
+                    <!-- Section header -->
+                    <div class="section-header text-center">
+                        <h2 class="title">Number of connections</h2>
+                    </div>
+                    <div id="cDiv" class="center"><!-- Plotly chart will be drawn inside this DIV --></div>
+                    
+                </div>
+		<div class="row">
+                    
+                    <!-- Section header -->
+                    <div class="section-header text-center">
+                        <h2 class="title">WiFi Connection Establishment Time</h2>
+                    </div>
+                    <!-- /Section header -->
+                    <div id="ctDiv" class="center"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+                </div>
+		<div class="row">
+                    
+                    <!-- Section header -->
+                    <div class="section-header text-center">
+                        <h2 class="title">Discovery statistics</h2>
+                    </div>
+                    <!-- /Section header -->
+                    <div id="dDiv" class="center"><!-- Plotly chart will be drawn inside this DIV --></div>
+                    
+                </div>
+		<div class="row">
+                    
+                    <!-- Section header -->
+                    <div class="section-header text-center">
+                        <h2 class="title">Content transfer time</h2>
+                    </div>
+                    <!-- /Section header -->
+                    <div id="tDiv" class="center"><!-- Plotly chart will be drawn inside this DIV --></div>
+            
+                </div>
+                </div>
+		
+           </div>
     </div>
 </section>
 
@@ -490,11 +439,22 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
     </div>
 </footer>
 
-                            <script type="text/paperscript" src="/user/themes/data-hop/js/paper-menu.js" canvas="menu-animation"></script>
-            <script type="text/paperscript" src="/user/themes/data-hop/js/paper-intro.js" canvas="intro-animation"></script>
-        <script type="text/paperscript" src="/user/themes/data-hop/js/paper-publishers.js" canvas="publishers-animation"></script>
-        <script type="text/paperscript" src="/user/themes/data-hop/js/paper-users.js" canvas="users-animation"></script>
+    <script type="text/paperscript" src="/user/themes/data-hop/js/paper-menu.js" canvas="menu-animation"></script>
+    <script type="text/paperscript" src="/user/themes/data-hop/js/paper-intro.js" canvas="intro-animation"></script>
+    <script type="text/paperscript" src="/user/themes/data-hop/js/paper-publishers.js" canvas="publishers-animation"></script>
+    <script type="text/paperscript" src="/user/themes/data-hop/js/paper-users.js" canvas="users-animation"></script>
     <script src="/assets/ccf371f616e3f812857559753baf9985.js" ></script>
-
+          <!-- Import and configure the Firebase SDK -->
+            <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+            <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+            <script src="/__/firebase/5.5.2/firebase-app.js"></script>
+            <script src="/__/firebase/5.5.2/firebase-auth.js"></script>
+	    <script src="/__/firebase/5.5.2/firebase-storage.js"></script>
+            <script src="/__/firebase/init.js"></script>
+        <script src="https://apis.google.com/js/client.js"></script>
+        <script type="text/javascript">
+            gapi.load('client:auth', authorize);
+        </script>
+            <script src="main.js"></script>
 </body>
 </html>
