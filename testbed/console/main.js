@@ -1,9 +1,9 @@
 
 
 var auth = firebase.auth();
-//var storageRef = firebase.storage().ref();
 var db = firebase.firestore();
- 
+var storageRef = firebase.storage().ref();
+
 const settings = {/* your settings... */ timestampsInSnapshots: true}; 
 db.settings(settings); 
 var currentUID;
@@ -12,9 +12,41 @@ var videoListSection = document.getElementById('video-list');
 var deviceListSection = document.getElementById('device-list');
 var reportListSection = document.getElementById('report-list');
 
+var videoFile = document.getElementById('file');
+
+
 var backendHostUrl = 'http://localhost:8080';
 
 var userTemplate;
+
+function handleFileSelect(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+    var file = evt.target.files[0];
+    
+    var metadata = {
+        'contentType': file.type
+    };
+    
+    // Push to child path.
+    // [START oncomplete]
+    storageRef.child('images/' + file.name).put(file, metadata).then(function(snapshot) {
+    console.log('Uploaded', snapshot.totalBytes, 'bytes.');
+    console.log('File metadata:', snapshot.metadata);
+                                                                     
+                                                                     // Let's get a download URL for the file.
+    snapshot.ref.getDownloadURL().then(function(url) {
+               console.log('File available at', url);
+             document.getElementById('linkbox').innerHTML = '<a href="' +  url + '">Click For File</a>';
+                                       
+        });
+    }).catch(function(error) {
+                                                                              // [START onfailure]
+                                                                              console.error('Upload failed:', error);
+                                                                              // [END onfailure]
+                                                                              });
+    // [END oncomplete]
+}
 /**
  * Triggers every time there is a change in the Firebase auth state (i.e. user signed-in or user signed out).
  */
@@ -27,6 +59,7 @@ function onAuthStateChanged(user) {
   //cleanupUi();
   if (user) {
     currentUID = user.uid;
+    videoFile.disabled = false;
 
     var displayName = user.displayName;
     var email = user.email;
@@ -117,12 +150,13 @@ window.addEventListener('load', function() {
   // Bind Sign in button.
   console.log("load");
 
-console.log(document.getElementById('video-list'));
+  console.log(document.getElementById('video-list'));
   // Listen for auth state changes
   auth.onAuthStateChanged(onAuthStateChanged);
   document.getElementById('log-out').addEventListener('click', toggleSignIn, false);
   // Saves message on form submit.
-  
+  videoFile.addEventListener('change', handleFileSelect, false);
+  videoFile.disabled = true;
 
    showSection(deviceListSection);
 
