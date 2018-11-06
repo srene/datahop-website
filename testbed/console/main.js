@@ -83,18 +83,24 @@ function upload(user){
     	upButton.innerText = "Upload";                                  
    	// Let's get a download URL for the file.
     	snapshot.ref.getDownloadURL().then(function(url) {
-	var title = document.getElementById('title').value;
-	var desc = document.getElementById('desc').value;
-    	console.log('File available at', url,title,desc);
-	var video = {
-      		title: title,
-      		desc: desc,
-      		url: url,
-		user: user.uid,
-		time: getFormattedDate()
-    	}
-	db.collection("videos").add(video);	
-	});
+            var title = document.getElementById('title').value;
+            var desc = document.getElementById('desc').value;
+                console.log('File available at', url,title,desc);
+            var video = {
+                    title: title,
+                    desc: desc,
+                    url: url,
+                user: user.uid,
+                time: getFormattedDate()
+                }
+            db.collection("videos").add(video).then(function(docRef) {
+               console.log("Document written with ID: ", docRef.id);
+                                                    document.getElementById('title')    .value = null;
+                                                    document.getElementById('desc').value = null;
+                                                    document.getElementById('file').value = null;
+             })
+
+        });
     }).catch(function(error) {
      // [START onfailure]
       console.error('Upload failed:', error);
@@ -108,13 +114,17 @@ function listVideos(user) {
    db.collection("videos").where("user", "==", user.uid)
    //db.collection("videos").get()
 	 .onSnapshot(function(querySnapshot) {
-
+                 var videoList = document.getElementById("videos");
+                 while( videoList.firstChild ){
+                 videoList.removeChild( videoList.firstChild );
+                 }
 	    querySnapshot.forEach(function(doc) {
 		console.log(doc.data());
+                              
+
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().title);         // Create a text node
-		node.appendChild(textnode); 	
-		document.getElementById("videos").appendChild(node);
+		node.appendChild(textnode);
 		node.addEventListener("click", function(){
   			$('.dd--active').not($(this).next()).slideUp(300).removeClass('dd--active');
   			$(this).next().toggleClass('dd--active').slideToggle(300)
@@ -122,6 +132,8 @@ function listVideos(user) {
 		node.addEventListener("click",function(t) {
   			return "undefined" != typeof w && w.event.triggered !== t.type ? w.event.dispatch.apply(e, arguments) : void 0
 		});
+        videoList.appendChild(node);
+
 		var desc = document.createElement('dd');
 		
 		var name = document.createElement('span');
@@ -144,7 +156,7 @@ function listVideos(user) {
 		time.appendChild(document.createElement('br')); 
 		desc.appendChild(time);		
 		
-		document.getElementById("videos").appendChild(desc);
+		videoList.appendChild(desc);
 
 	    });
 	});
