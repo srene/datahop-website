@@ -4,8 +4,8 @@ var auth = firebase.auth();
 var db = firebase.firestore();
 var storageRef = firebase.storage().ref();
 
-const settings = {/* your settings... */ timestampsInSnapshots: true}; 
-db.settings(settings); 
+const settings = {/* your settings... */ timestampsInSnapshots: true};
+db.settings(settings);
 var currentUID;
 var file;
 var metadata;
@@ -13,7 +13,7 @@ var metadata;
 var videoListSection = document.getElementById('video-list');
 var deviceListSection = document.getElementById('device-list');
 var reportListSection = document.getElementById('report-list');
-var upButton = document.getElementById('upload-button'); 
+var upButton = document.getElementById('upload-button');
 var videoFile = document.getElementById('file');
 
 var backendHostUrl = 'http://localhost:8080';
@@ -26,7 +26,7 @@ function handleFileSelect(evt) {
     metadata = {
         'contentType': file.type
     };
-    
+
 }
 
 /**
@@ -52,7 +52,7 @@ function onAuthStateChanged(user) {
     var providerData = user.providerData;
     listVideos(user);
     listDevices(user);
-    upButton.addEventListener('click', function(){upload(user);}, false);	
+    upButton.addEventListener('click', function(){upload(user);}, false);
   } else {
     // Set currentUID to null.
     currentUID = null;
@@ -79,25 +79,30 @@ function upload(user){
     storageRef.child('testbed/' + file.name).put(file, metadata).then(function(snapshot) {
     	console.log('Uploaded', snapshot.totalBytes, 'bytes.');
     	console.log('File metadata:', snapshot.metadata);
-        upButton.disabled = false;
-    	upButton.innerText = "Upload";                                  
+      upButton.disabled = false;
+    	upButton.innerText = "Upload";
    	// Let's get a download URL for the file.
     	snapshot.ref.getDownloadURL().then(function(url) {
             var title = document.getElementById('title').value;
             var desc = document.getElementById('desc').value;
+            var chunk = document.getElementById('chunk').value  * 1024 * 1024;
                 console.log('File available at', url,title,desc);
             var video = {
                     title: title,
                     desc: desc,
                     url: url,
-                user: user.uid,
-                time: getFormattedDate()
+                    user: user.uid,
+                    time: getFormattedDate(),
+                    chunk: 0,
+                    chunkSize: chunk,
+                    fileName: file.name
                 }
             db.collection("videos").add(video).then(function(docRef) {
                console.log("Document written with ID: ", docRef.id);
-                                                    document.getElementById('title')    .value = null;
-                                                    document.getElementById('desc').value = null;
-                                                    document.getElementById('file').value = null;
+                                                  document.getElementById('title').value = null;
+                                                  document.getElementById('desc').value = null;
+                                                  videoFile.value = null;
+                                                  document.getElementById('chunk').value = null;
              })
 
         });
@@ -111,54 +116,62 @@ function upload(user){
 
 function listVideos(user) {
 
-   db.collection("videos").where("user", "==", user.uid)
+   db.collection("videos").where("user", "==", user.uid).where("chunk","==",0)
    //db.collection("videos").get()
 	 .onSnapshot(function(querySnapshot) {
                  var videoList = document.getElementById("videos");
                  while( videoList.firstChild ){
                  videoList.removeChild( videoList.firstChild );
                  }
-	    querySnapshot.forEach(function(doc) {
-		console.log(doc.data());
-                              
+            	    querySnapshot.forEach(function(doc) {
+                        		console.log(doc.data());
 
-		var node = document.createElement('dt');
-		var textnode = document.createTextNode(doc.data().title);         // Create a text node
-		node.appendChild(textnode);
-		node.addEventListener("click", function(){
-  			$('.dd--active').not($(this).next()).slideUp(300).removeClass('dd--active');
-  			$(this).next().toggleClass('dd--active').slideToggle(300)
-		});
-		node.addEventListener("click",function(t) {
-  			return "undefined" != typeof w && w.event.triggered !== t.type ? w.event.dispatch.apply(e, arguments) : void 0
-		});
-        videoList.appendChild(node);
 
-		var desc = document.createElement('dd');
-		
-		var name = document.createElement('span');
-		var textdesc = document.createTextNode(doc.data().desc);         // Create a text node
-		name.appendChild(textdesc); 
-		name.appendChild(document.createElement('br')); 
-		desc.appendChild(name);	
-		
-		var link = document.createElement('span');
-		var a = document.createElement('a');
-                a.setAttribute('href', doc.data().url);
-		a.appendChild(document.createTextNode("Video link" + ' '));
-		link.appendChild(a); 
-		link.appendChild(document.createElement('br')); 
-		desc.appendChild(link);	
-		
-		var time = document.createElement('span');
-		var textdesc = document.createTextNode("Uploaded time: "+doc.data().time);         // Create a text node
-		time.appendChild(textdesc); 
-		time.appendChild(document.createElement('br')); 
-		desc.appendChild(time);		
-		
-		videoList.appendChild(desc);
+                        		var node = document.createElement('dt');
+                        		var textnode = document.createTextNode(doc.data().title);         // Create a text node
+                        		node.appendChild(textnode);
+                        		node.addEventListener("click", function(){
+                          			$('.dd--active').not($(this).next()).slideUp(300).removeClass('dd--active');
+                          			$(this).next().toggleClass('dd--active').slideToggle(300)
+                        		});
+                        		node.addEventListener("click",function(t) {
+                          			return "undefined" != typeof w && w.event.triggered !== t.type ? w.event.dispatch.apply(e, arguments) : void 0
+                        		});
+                                videoList.appendChild(node);
 
-	    });
+                        		var desc = document.createElement('dd');
+
+                        		var name = document.createElement('span');
+                        		var textdesc = document.createTextNode(doc.data().desc);         // Create a text node
+                        		name.appendChild(textdesc);
+
+
+                        		name.appendChild(document.createElement('br'));
+                        		desc.appendChild(name);
+
+                        		var link = document.createElement('span');
+                        		var a = document.createElement('a');
+                            a.setAttribute('href', doc.data().url);
+                        		a.appendChild(document.createTextNode("Video link" + ' '));
+                        		link.appendChild(a);
+                        		link.appendChild(document.createElement('br'));
+                        		desc.appendChild(link);
+
+                        		var time = document.createElement('span');
+                        		var textdesc = document.createTextNode("Uploaded time: "+doc.data().time);         // Create a text node
+                        		time.appendChild(textdesc);
+                        		time.appendChild(document.createElement('br'));
+                        		desc.appendChild(time);
+
+                            var btn = document.createElement("button");        // Create a <button> element
+                            var t = document.createTextNode("Delete video");       // Create a text node
+                            btn.appendChild(t);
+                            btn.onclick = function() { deleteVideo(doc.data().title);};                           // Append the text to <button>
+                            desc.appendChild(btn);
+
+                        		videoList.appendChild(desc);
+
+            	    });
 	});
 }
 
@@ -170,7 +183,7 @@ db.collection("users").get()
 	    querySnapshot.forEach(function(doc) {
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
-		node.appendChild(textnode); 	
+		node.appendChild(textnode);
 		document.getElementById("devices").appendChild(node);
 		node.addEventListener("click", function(){
   			$('.dd--active').not($(this).next()).slideUp(300).removeClass('dd--active');
@@ -182,23 +195,47 @@ db.collection("users").get()
 		var desc = document.createElement('dd');
 		var name = document.createElement('span');
 		var textdesc = document.createTextNode("User: "+doc.data().name+"\n\n");         // Create a text node
-		name.appendChild(textdesc); 
-		name.appendChild(document.createElement('br')); 
-		desc.appendChild(name);	
+		name.appendChild(textdesc);
+		name.appendChild(document.createElement('br'));
+		desc.appendChild(name);
 		var version = document.createElement('span');
 		var textdesc = document.createTextNode("OS Version: "+doc.data().version+"\n\n");         // Create a text node
-		version.appendChild(textdesc); 
-		version.appendChild(document.createElement('br')); 
-		desc.appendChild(version);		
+		version.appendChild(textdesc);
+		version.appendChild(document.createElement('br'));
+		desc.appendChild(version);
 		var time = document.createElement('span');
 		var textdesc = document.createTextNode("Last time logged in: "+doc.data().time+"\n\n");         // Create a text node
-		time.appendChild(textdesc); 
-		time.appendChild(document.createElement('br')); 
-		desc.appendChild(time);	
+		time.appendChild(textdesc);
+		time.appendChild(document.createElement('br'));
+		desc.appendChild(time);
 		document.getElementById("devices").appendChild(desc);
 
 	    });
 	});
+
+}
+
+function deleteVideo(videoName)
+{
+var query = db.collection('videos').where('title','==',videoName);
+  query.get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+      // Create a reference to the file to delete
+      var fileFolder;
+    if(doc.data().chunk==0)fileFolder="testbed/";
+    else fileFolder="video/";
+    var desertRef = storageRef.child(fileFolder+doc.data().fileName);
+
+      // Delete the file
+      desertRef.delete().then(function() {
+        console.log("File deleted successfully");
+      }).catch(function(error) {
+        console.error(error);
+        // Uh-oh, an error occurred!
+      });
+      doc.ref.delete();
+    });
+  });
 
 }
 /**
@@ -211,7 +248,7 @@ function toggleSignIn() {
 
 	    auth.signOut();
 	    // [END signout]
-	} 
+	}
 }
 
 // [END gae_python_firebase_login]
