@@ -1,0 +1,45 @@
+<template class="task-template">
+
+    <section id="main-section" class="section js-section">
+
+        <header class="section-header">
+            <div class="section-wrapper">
+                <h1 class="main-title">Share your Files with Others</h1>
+            </div>
+        </header>
+        <div id="toolbar-set" class="toolbar-main">
+            <div class="btn-group">
+                <button id="btn-open-file" class="btn btn-large btn-default">
+                    <span class="icon icon-folder"></span>
+                </button>
+                <button id="btn-search-file" class="btn btn-large btn-default">
+                    <span class="icon icon-search"></span>
+                </button>
+                <button id="btn-reload" class="btn btn-large btn-default">
+                    <span class="icon icon-arrows-ccw"></span>
+                </button>
+            </div>
+
+        </div>
+        <div id="repository-view" class="grid-container">
+
+
+                <div class="search">
+                    <input type="search" placeholder="Find a file.." />
+                </div>
+
+                <div class="breadcrumbs"></div>
+
+                <ul class="data"></ul>
+
+                <div class="nothingfound">
+                    <div class="nofiles"></div>
+                    <span>No files found</span>
+                </div>
+
+        </div>
+
+        <div id="distribution-table" class="main-content"></div>
+    </section>
+
+</template>

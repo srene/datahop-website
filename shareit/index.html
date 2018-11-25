@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>DataHop</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/images/iconic/font/css/open-iconic-bootstrap.min.css" />
+    <link rel="stylesheet" href="./assets/css/photon.min.css" />
+    <link rel="stylesheet" href="./assets/css/global.css" />
+    <link rel="stylesheet" href="./assets/css/navbar.css" />
+    <link rel="stylesheet" href="./assets/css/sections.css" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/settings.css" />
+    <link rel="stylesheet" href="./assets/css/grid_layout.css" />
+    <link rel="import" href="./templates/main.html" />
+    <link rel="import" href="./templates/settings.html" />
+    <link rel="import" href="./templates/admin.html" />
+
+</head>
+<body>
+
+
+<nav class="custom-nav js-nav">
+    <header class="custom-nav-header">
+        <h1 class="custom-nav-title"><strong>Share It</strong></h1>
+        <svg class="custom-nav-header-icon"><use xlink:href="assets/user/themes/data-hop/images/ellipse.png#icon-native-ui" height="200" width="200"></use></svg>
+    </header>
+
+    <div class="custom-nav-item app-files">
+
+        <button type="button" id="button-main" data-section="main" class="custom-nav-button">
+            <span class="oi oi-folder"></span>&nbspYour Repository</button>
+    </div>
+
+    <div class="custom-nav-item app-settings">
+        <button type="button" id="button-settings" data-section="settings" class="custom-nav-button">
+            <span class="oi oi-wrench"></span>&nbspSettings</button>
+
+
+    </div>
+
+    <div class="custom-nav-item app-admin">
+        <button type="button" id="button-admin" data-section="admin" class="custom-nav-button">
+            <span class="oi oi-person"></span>&nbspAdmin Area</button>
+
+
+    </div>
+    <hr>
+    <div class="custom-nav-item app-exit">
+        <button type="button" id="exit" class="custom-nav-button">
+            <span class="oi oi-power-standby"></span>&nbspExit</button>
+
+
+    </div>
+
+    <footer class="custom-nav-footer">
+        <button type="button" id="datahop-community" class="custom-nav-footer-button">Join DataHop Community</button>
+        <a id="datahop-community-website" class="custom-nav-footer-logo" href="http://sparta.ee.ucl.ac.uk" aria-label="Homepage">
+
+        </a>
+    </footer>
+
+</nav>
+
+<main class="content js-content"></main>
+
+<script>
+    window.$ = window.jQuery = require('jquery');
+    require('./node_modules/popper.js/dist/umd/popper.min');
+    require('./node_modules/bootstrap/dist/js/bootstrap.min');
+    require('./assets/js/imports');
+    require('./assets/js/navbar');
+    require('./assets/js/events/main_renderer');
+
+</script>
+</body>
+</html>

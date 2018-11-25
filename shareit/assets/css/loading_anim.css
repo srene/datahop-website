@@ -1,0 +1,48 @@
+
+
+#datahop-animation {
+    background: url("../user/themes/data-hop/images/ellipse.png") no-repeat;
+
+}
+.intro__h1 {
+    margin-bottom:15px;
+    padding:15px 0 14px;
+    border-top:1px solid #2e343a;
+    border-bottom:1px solid #2e343a
+}
+
+
+#app-name {
+    font-size: 3.4rem;
+
+    opacity: 0;
+    color: black;
+    animation-name: fadeInOut;
+    animation-delay: 1s;
+    animation-duration: 5s;
+}
+
+#powered {
+
+    position: absolute;
+
+    opacity: 0;
+    color: yellow;
+    animation-name: fadeInOut;
+    animation-delay: 2s;
+    animation-duration: 6s;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0%;
+    }
+}

@@ -1,0 +1,66 @@
+
+.toolbar-header-grey {
+    background: #2e343a;
+}
+
+h1.main-title{
+    font-size:1.8em;
+    color:#2e343a;
+}
+
+
+.main-wrapper {
+
+}
+
+.welcome {
+    color: #f8f8f8;
+    font-size: 1.8em;
+}
+
+.xtoolbar {
+    background: #2e343a;
+}
+
+.copyright {
+    font-size:1.8em;
+    color: #f8f8f8;
+}
+
+.toolbar-main {
+    margin-top: 2rem;
+    margin-left: 4rem;
+    padding-bottom: 2rem
+}
+
+.main-content:first-of-type {
+    margin-top: 2rem;
+}
+.main-content:last-of-type {
+    margin-bottom: 2rem;
+}
+@media (min-width: 940px) {
+    .main-content:last-of-type {
+        margin-bottom: 4rem;
+    }
+}
+
+.main-content {
+    position: relative;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+/* Tables */
+
+table.table-content-dist {
+margin: 0 auto;
+}
+
+table > thead > tr {
+    color: #2e343a;
+}
+
+table > tbody > tr > td {
+    color: #2e343a;
+}
