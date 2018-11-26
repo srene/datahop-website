@@ -2,8 +2,10 @@
 
 var auth = firebase.auth();
 var db = firebase.firestore();
+//var db = firebase.database();
 var storageRef = firebase.storage().ref();
-
+var devices=[];
+var users=[];
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 db.settings(settings);
 var currentUID;
@@ -76,7 +78,8 @@ function upload(user){
     console.log("Upload");
     upButton.disabled = true;
     upButton.innerText = "Uploading...";
-    storageRef.child('testbed/' + file.name).put(file, metadata).then(function(snapshot) {
+    var filenm = document.getElementById('title').value+'.mp4'
+    storageRef.child('testbed/'+filenm).put(file, metadata).then(function(snapshot) {
     	console.log('Uploaded', snapshot.totalBytes, 'bytes.');
     	console.log('File metadata:', snapshot.metadata);
       upButton.disabled = false;
@@ -95,9 +98,13 @@ function upload(user){
                     time: getFormattedDate(),
                     chunk: 0,
                     chunkSize: chunk,
-                    fileName: file.name
+                    fileName: filenm
                 }
+            //var newVideoKey = firebase.database().ref().child('videos').push().key;
             db.collection("videos").add(video).then(function(docRef) {
+            //var newVideo = {};
+            //newVideo['/videos/' + newVideoKey] = video;
+            //db.ref().update(newVideo);
                console.log("Document written with ID: ", docRef.id);
                                                   document.getElementById('title').value = null;
                                                   document.getElementById('desc').value = null;
@@ -151,7 +158,7 @@ function listVideos(user) {
 
                         		var link = document.createElement('span');
                         		var a = document.createElement('a');
-                            a.setAttribute('href', doc.data().url);
+                                a.setAttribute('href', doc.data().url);
                         		a.appendChild(document.createTextNode("Video link" + ' '));
                         		link.appendChild(a);
                         		link.appendChild(document.createElement('br'));
@@ -162,6 +169,22 @@ function listVideos(user) {
                         		time.appendChild(textdesc);
                         		time.appendChild(document.createElement('br'));
                         		desc.appendChild(time);
+                                          
+                                          
+                                  var list = document.createElement('span');
+                                  var textdesc = document.createTextNode("Source node ");         // Create a text node
+                                  var select = document.createElement('select');
+                                  devices.forEach(function(item, index, array) {
+                                      console.log("user",item)
+                                      var option = document.createElement('option');
+                                    option.value = users[index];
+                                    option.innerHTML= item;
+                                    select.appendChild(option);
+                                  });
+                                  list.appendChild(textdesc);
+                                          list.appendChild(select);
+                                  list.appendChild(document.createElement('br'));
+                                  desc.appendChild(list);
 
                             var btn = document.createElement("button");        // Create a <button> element
                             var t = document.createTextNode("Delete video");       // Create a text node
@@ -181,6 +204,8 @@ db.collection("users").get()
 	    .then(function(querySnapshot) {
 
 	    querySnapshot.forEach(function(doc) {
+        devices.push(doc.data().model);
+        users.push(doc.data().user_id);
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
 		node.appendChild(textnode);
