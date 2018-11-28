@@ -4,8 +4,8 @@ var auth = firebase.auth();
 var db = firebase.firestore();
 //var db = firebase.database();
 var storageRef = firebase.storage().ref();
-var devices=[];
-var users=[];
+var chunk=[];
+var chunkId=[];
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 db.settings(settings);
 var currentUID;
@@ -133,7 +133,7 @@ function listVideos(user) {
                  videoList.removeChild( videoList.firstChild );
                  }
             	    querySnapshot.forEach(function(doc) {
-                        		console.log(doc.data());
+                        		//console.log(doc.data());
 
 
                         		var node = document.createElement('dt');
@@ -173,10 +173,10 @@ function listVideos(user) {
                         		desc.appendChild(time);
 
 
-                                  var list = document.createElement('span');
+                                  /*var list = document.createElement('span');
                                   var textdesc = document.createTextNode("Source node ");         // Create a text node
                                   var select = document.createElement('select');
-                                   select.multiple = true; 
+                                  select.multiple = true;
                                   console.log("user");
                                   devices.forEach(function(item, index, array) {
                                       console.log("user",item)
@@ -188,7 +188,7 @@ function listVideos(user) {
                                   list.appendChild(textdesc);
                                           list.appendChild(select);
                                   list.appendChild(document.createElement('br'));
-                                  desc.appendChild(list);
+                                  desc.appendChild(list);*/
 
                             var btn = document.createElement("button");        // Create a <button> element
                             var t = document.createTextNode("Delete video");       // Create a text node
@@ -210,8 +210,7 @@ db.collection("users").get()
 
 	    querySnapshot.forEach(function(doc) {
         console.log("List devices ",doc.data().model);
-        devices.push(doc.data().model);
-        users.push(doc.data().user_id);
+
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
 		node.appendChild(textnode);
@@ -239,7 +238,35 @@ db.collection("users").get()
 		time.appendChild(textdesc);
 		time.appendChild(document.createElement('br'));
 		desc.appendChild(time);
+                              
+        var list = document.createElement('input');
+        list.setAttribute('id','cc');
+        list.setAttribute('type','text');
+        list.setAttribute('placeholder','Select');
+        /*var myData=[];
+        chunkId.forEach(function(item, index, array) {
+              console.log("chunk ",item,chunk[index])
+              myData.push({id: index, title:chunk[index]});
+        });*/
+        var myData=[{id:0,title:'rabbit 0'}]
+        myData.forEach(function(item, index, array) {
+                       console.log(item);
+                       });
+        $('#cc').comboTree({
+                source : myData,
+                isMultiple: true
+        });
+                            
+        desc.appendChild(list);
 		document.getElementById("devices").appendChild(desc);
+        
+                              
+                              
+                             
+
+                              
+
+                              
 
 	    });
 	});
@@ -305,8 +332,7 @@ $('#notes-container').append($('<p>').text(note.message));
 window.addEventListener('load', function() {
   // Bind Sign in button.
   console.log("load");
-
-  console.log(document.getElementById('video-list'));
+  loadChunks();
   // Listen for auth state changes
   auth.onAuthStateChanged(onAuthStateChanged);
   document.getElementById('log-out').addEventListener('click', toggleSignIn, false);
@@ -318,6 +344,16 @@ window.addEventListener('load', function() {
 
 }, false);
 
+function loadChunks()
+{
+    db.collection("videos").get()
+    .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            chunk.push(doc.data().title+" "+doc.data().chunk);
+            chunkId.push(doc.id);
+        });
+    });
+}
 /**
  * Displays the given section element and changes styling of the given button.
  */
