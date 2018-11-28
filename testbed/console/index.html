@@ -151,6 +151,46 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
         <h6>Title: <input type="text" id="title" name="title" size="35"/></br>
             Description: <input type="desc" id="desc" name="desc" size="70"/></br>
             Chunk size (MB): <input type="desc" id="chunk" name="chunk" size="2"/></br>
+          <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+          integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+          crossorigin="anonymous"></script>
+          <script src="js/comboTreePlugin.js"></script>
+	        <script src="js/icontains.js"></script>
+           <input type="text" id="example" placeholder="Select">
+            <script type="text/javascript">
+            var myData = [
+              {
+                id: 0,
+                title: 'Item 1 '
+              }, {
+                id: 1,
+                title: 'Item 2',
+                subs: [
+                  {
+                    id: 10,
+                    title: 'Item 2-1'
+                  }, {
+                    id: 11,
+                    title: 'Item 2-2'
+                  }, {
+                    id: 12,
+                    title: 'Item 2-3'
+                  }
+                ]
+              }, {
+                id: 2,
+                title: 'Item 3'
+              },
+              // more data here
+          ];
+
+          $('#example').comboTree({
+            source : myData,
+            isMultiple: true
+          });
+
+                    </script>
+
 
 				    <input type="file" id="file" name="file" accept="video/*" />
 				    <button class="button" id="upload-button" name="upload" disabled="true">Upload</button>
