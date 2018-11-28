@@ -52,8 +52,8 @@ function onAuthStateChanged(user) {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     var providerData = user.providerData;
-    listVideos(user);
     listDevices(user);
+    listVideos(user);
     upButton.addEventListener('click', function(){upload(user);}, false);
   } else {
     // Set currentUID to null.
@@ -89,7 +89,8 @@ function upload(user){
             var title = document.getElementById('title').value;
             var desc = document.getElementById('desc').value;
             var chunk = document.getElementById('chunk').value  * 1024 * 1024;
-                console.log('File available at', url,title,desc);
+            var chunkNumber = file.size / chunk;
+            console.log('File available at', url,title,desc,Math.ceil(chunkNumber));
             var video = {
                     title: title,
                     desc: desc,
@@ -98,7 +99,8 @@ function upload(user){
                     time: getFormattedDate(),
                     chunk: 0,
                     chunkSize: chunk,
-                    fileName: filenm
+                    fileName: filenm,
+                    totalChunk: Math.ceil(chunkNumber)//,
                 }
             //var newVideoKey = firebase.database().ref().child('videos').push().key;
             db.collection("videos").add(video).then(function(docRef) {
@@ -169,11 +171,13 @@ function listVideos(user) {
                         		time.appendChild(textdesc);
                         		time.appendChild(document.createElement('br'));
                         		desc.appendChild(time);
-                                          
-                                          
+
+
                                   var list = document.createElement('span');
                                   var textdesc = document.createTextNode("Source node ");         // Create a text node
                                   var select = document.createElement('select');
+                                   select.multiple = true; 
+                                  console.log("user");
                                   devices.forEach(function(item, index, array) {
                                       console.log("user",item)
                                       var option = document.createElement('option');
@@ -200,10 +204,12 @@ function listVideos(user) {
 
 function listDevices(user)
 {
+  console.log("List devices");
 db.collection("users").get()
 	    .then(function(querySnapshot) {
 
 	    querySnapshot.forEach(function(doc) {
+        console.log("List devices ",doc.data().model);
         devices.push(doc.data().model);
         users.push(doc.data().user_id);
 		var node = document.createElement('dt');
