@@ -248,24 +248,31 @@ db.collection("users").get()
               console.log("chunk ",item,chunk[index])
               myData.push({id: index, title:chunk[index]});
         });*/
-        var myData=[{id:0,title:'rabbit 0'}]
+                              var myData=[{id:0,title:'rabbit 0',subs: [
+                                                                        {
+                                                                        id: 10,
+                                                                        title: 'choice 2 1'
+                                                                        }, {
+                                                                        id: 11,
+                                                                        title: 'choice 2 2'
+                                                                        }, {
+                                                                        id: 12,
+                                                                        title: 'choice 2 3'
+                                                                        }
+                                                                        ]}]
         myData.forEach(function(item, index, array) {
                        console.log(item);
                        });
-        $('#cc').comboTree({
+        /*$('#cc').comboTree({
                 source : myData,
                 isMultiple: true
-        });
+        });*/
                             
         desc.appendChild(list);
 		document.getElementById("devices").appendChild(desc);
         
                               
                               
-                             
-
-                              
-
                               
 
 	    });
