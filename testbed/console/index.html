@@ -32,6 +32,9 @@
     <link href="/assets/0dff50c0bc4cd857673761897820ea55.css" type="text/css" rel="stylesheet" />
     <!--<script src="bquery.js" type="text/javascript" ></script>-->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="js/icontains.js"  type="text/javascript"></script>
+    <script src="js/comboTreePlugin.js"  type="text/javascript"></script>
 </head>
 <body class="home">
 
@@ -151,6 +154,9 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
         <h6>Title: <input type="text" id="title" name="title" size="35"/></br>
             Description: <input type="desc" id="desc" name="desc" size="70"/></br>
             Chunk size (MB): <input type="desc" id="chunk" name="chunk" size="2"/></br>
+           
+            <input type="text" id="example" placeholder="Select">
+                
 
 				    <input type="file" id="file" name="file" accept="video/*" />
 				    <button class="button" id="upload-button" name="upload" disabled="true">Upload</button>
@@ -184,14 +190,48 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
     </div>
 </section>
 
-<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
-<script src="js/comboTreePlugin.js"></script>
-<script src="js/icontains.js"></script>
+
+
     <script type="text/paperscript" src="/user/themes/data-hop/js/paper-menu.js" canvas="menu-animation"></script>
     <script type="text/paperscript" src="/user/themes/data-hop/js/paper-intro.js" canvas="intro-animation"></script>
     <script type="text/paperscript" src="/user/themes/data-hop/js/paper-publishers.js" canvas="publishers-animation"></script>
     <script type="text/paperscript" src="/user/themes/data-hop/js/paper-users.js" canvas="users-animation"></script>
-    <script src="/assets/ccf371f616e3f812857559753baf9985.js" ></script>
+    <script type="text/javascript">
+        var myData = [
+                      {
+                      id: 0,
+                      title: 'Item 1 '
+                      }, {
+                      id: 1,
+                      title: 'Item 2',
+                      subs: [
+                             {
+                             id: 10,
+                             title: 'Item 2-1'
+                             }, {
+                             id: 11,
+                             title: 'Item 2-2'
+                             }, {
+                             id: 12,
+                             title: 'Item 2-3'
+                             }
+                             ]
+                      }, {
+                      id: 2,
+                      title: 'Item 3'
+                      },
+                      // more data here
+                      ];
+                      
+                      jQuery(document).ready(function($) {
+                                             
+                                             comboTree1 = $('#example').comboTree({
+                                                                                         source : myData,
+                                                                                         isMultiple: true
+                                                                                         });
+                                             });
+                                              
+        </script>
           <!-- Import and configure the Firebase SDK -->
             <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
             <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
@@ -201,7 +241,8 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
         <script src="/__/firebase/5.5.5/firebase-firestore.js"></script>
         <script src="/__/firebase/init.js"></script>
         <!--<script src="https://apis.google.com/js/client.js"></script>-->
+        <script src="main.js"></script>
+        <script src="/assets/ccf371f616e3f812857559753baf9985.js" ></script>
 
-            <script src="main.js"></script>
 </body>
 </html>
