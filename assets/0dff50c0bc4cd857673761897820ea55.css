@@ -1308,7 +1308,8 @@ strong {
     }
     
     .button2:hover {
-      //  color: #f8f8f8
+        color: #f8f8f8;
+        background: #2e343a;
     }
     .button2:hover:before {
       //  transform: translate3d(0, 0, 0)
