@@ -1,11 +1,12 @@
-
-
 var auth = firebase.auth();
 var db = firebase.firestore();
 //var db = firebase.database();
 var storageRef = firebase.storage().ref();
 var chunk=[];
 var chunkId=[];
+var devices=[];
+var devicesId=[];
+
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 db.settings(settings);
 var currentUID;
@@ -18,7 +19,7 @@ var reportListSection = document.getElementById('report-list');
 var upButton = document.getElementById('upload-button');
 var videoFile = document.getElementById('file');
 
-var backendHostUrl = 'http://localhost:8080';
+//var backendHostUrl = 'http://localhost:8080';
 
 function handleFileSelect(evt) {
     evt.stopPropagation();
@@ -42,6 +43,7 @@ function onAuthStateChanged(user) {
 
   //cleanupUi();
   if (user) {
+      
     currentUID = user.uid;
     videoFile.disabled = false;
 
@@ -173,22 +175,23 @@ function listVideos(user) {
                         		desc.appendChild(time);
 
 
-                                  /*var list = document.createElement('span');
+                                  var list = document.createElement('span');
                                   var textdesc = document.createTextNode("Source node ");         // Create a text node
                                   var select = document.createElement('select');
                                   select.multiple = true;
-                                  console.log("user");
+                                  select.size = 5;
+                                  //console.log("user");
                                   devices.forEach(function(item, index, array) {
-                                      console.log("user",item)
+                                      //console.log("user",item)
                                       var option = document.createElement('option');
-                                    option.value = users[index];
+                                    option.value = devicesId[index];
                                     option.innerHTML= item;
                                     select.appendChild(option);
                                   });
                                   list.appendChild(textdesc);
-                                          list.appendChild(select);
+                                  list.appendChild(select);
                                   list.appendChild(document.createElement('br'));
-                                  desc.appendChild(list);*/
+                                  desc.appendChild(list);
 
                             var btn = document.createElement("button");        // Create a <button> element
                             var t = document.createTextNode("Delete video");       // Create a text node
@@ -204,12 +207,12 @@ function listVideos(user) {
 
 function listDevices(user)
 {
-  console.log("List devices");
+ // console.log("List devices");
 db.collection("users").get()
 	    .then(function(querySnapshot) {
 
 	    querySnapshot.forEach(function(doc) {
-        console.log("List devices ",doc.data().model);
+        //console.log("List devices ",doc.data().model);
 
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
@@ -222,6 +225,7 @@ db.collection("users").get()
 		node.addEventListener("click",function(t) {
   			return "undefined" != typeof w && w.event.triggered !== t.type ? w.event.dispatch.apply(e, arguments) : void 0
 		});
+                              
 		var desc = document.createElement('dd');
 		var name = document.createElement('span');
 		var textdesc = document.createTextNode("User: "+doc.data().name+"\n\n");         // Create a text node
@@ -238,55 +242,79 @@ db.collection("users").get()
 		time.appendChild(textdesc);
 		time.appendChild(document.createElement('br'));
 		desc.appendChild(time);
-                              
-       /* var list = document.createElement('input');
-        list.setAttribute('id','cc');
-        list.setAttribute('type','text');
-        list.setAttribute('placeholder','Select');*/
-        /*var myData=[];
-        chunkId.forEach(function(item, index, array) {
-              console.log("chunk ",item,chunk[index])
-              myData.push({id: index, title:chunk[index]});
-        });*/
-         /*                     var myData=[{id:0,title:'rabbit 0',subs: [
-                                                                        {
-                                                                        id: 10,
-                                                                        title: 'choice 2 1'
-                                                                        }, {
-                                                                        id: 11,
-                                                                        title: 'choice 2 2'
-                                                                        }, {
-                                                                        id: 12,
-                                                                        title: 'choice 2 3'
-                                                                        }
-                                                                        ]}]
-        myData.forEach(function(item, index, array) {
-                       //console.log(item);
-                       });
-                  
-        var comboTree;
-        jQuery(document).ready(function($) {
-                             
-         comboTree = $('#list').comboTree({
-                 source : myData,
-                 isMultiple: true
-                 });
-         
-     
-         });
-        desc.appendChild(list);
-        console.log("List ",list.val());*/
-		document.getElementById("devices").appendChild(desc);
+                 
+      var list = document.createElement('span');
+      var textdesc = document.createTextNode("Source node ");         // Create a text node
+      var sel = document.createElement('select');
+      sel.id = 'sel'+doc.id;
+      sel.multiple = true;
+      sel.size = 5;
+      sel.addEventListener('change', getSelectValues(sel,doc.id));
+      //sel.addEventListener('change', scopepreserver(sel));
+      //sel.addEventListener('change', selectValue(doc.data().model))
+      chunk.forEach(function(item, index, array) {
+                     // console.log("user",item)
+                      var option = document.createElement('option');
+                      option.value = chunkId[index];
+                      option.innerHTML= item;
+                      sel.appendChild(option);
+                      });
+      list.appendChild(textdesc);
+      list.appendChild(sel);
+      list.appendChild(document.createElement('br'));
+      desc.appendChild(list);
+    
+     //$('select').change(function() {alert($(this).val())})
+        document.getElementById("devices").appendChild(desc);
         
-                              
-                              
-                              
 
 	    });
 	});
 
 }
 
+function getSelectValues(select,user) {
+    return function () {
+        var result = [];
+        var options = select && select.options;
+        var opt;
+
+        for (var i=0, iLen=options.length; i<iLen; i++) {
+            opt = options[i];
+            console.log(user,opt.value);
+            
+            if(!opt.selected){
+            var query = db.collection('source');
+            var query = db.collection('source').where('user','==',user).where('video','==',opt.value);
+            query.get().then(function(querySnapshot) {
+                querySnapshot.forEach(function(doc) {
+                console.log(doc.id);
+                 db.collection("source").doc(doc.id).delete().then(function() {
+                   console.log("Document successfully deleted!");
+                   }).catch(function(error) {
+                            console.error("Error removing document: ", error);
+                            });
+                
+               });
+            });
+            
+            } else if (opt.selected) {
+                //result.push(opt.value || opt.text);
+                console.log(opt.value,opt.text);
+                db.collection("source").add({
+                    user: user,
+                    video: opt.value});
+            }
+        }
+    }
+    //return result;
+}
+
+function scopepreserver(sel) {
+    return function () {
+        alert(sel.id);
+    };
+}
 function deleteVideo(videoName)
 {
 var query = db.collection('videos').where('title','==',videoName);
@@ -347,6 +375,7 @@ window.addEventListener('load', function() {
   // Bind Sign in button.
   console.log("load");
   loadChunks();
+  loadDevices();
   // Listen for auth state changes
   auth.onAuthStateChanged(onAuthStateChanged);
   document.getElementById('log-out').addEventListener('click', toggleSignIn, false);
@@ -360,13 +389,38 @@ window.addEventListener('load', function() {
 
 function loadChunks()
 {
-    db.collection("videos").get()
-    .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            chunk.push(doc.data().title+" "+doc.data().chunk);
-            chunkId.push(doc.id);
-        });
+    /*jQuery(document).ready(function($) {
+            var comboTree1 = $('#example').comboTree({ source : myData,isMultiple: true});
+    });*/
+    var videoRef = db.collection("videos").orderBy("fileName","asc");
+    //var videoRef = db.collection("videos");
+    videoRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+            //console.log(doc.data())
+            if(doc.data().chunk!=0){
+                chunk.push(doc.data().desc+" chunk "+doc.data().chunk);
+                chunkId.push(doc.id);
+            }
+            });
     });
+
+}
+
+function loadDevices()
+{
+    /*jQuery(document).ready(function($) {
+     var comboTree1 = $('#example').comboTree({ source : myData,isMultiple: true});
+     });*/
+    var userRef = db.collection("users");
+    userRef.get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                if(doc.data().chunk!=0){
+                devices.push(doc.data().name+" "+doc.data().model);
+                devicesId.push(doc.id);
+                }
+          });
+    });
+    
 }
 /**
  * Displays the given section element and changes styling of the given button.
@@ -382,3 +436,5 @@ function showSection(sectionElement) {
   }
 
 }
+
+
