@@ -175,7 +175,7 @@ function listVideos(user) {
                         		desc.appendChild(time);
 
 
-                                  var list = document.createElement('span');
+                                 /* var list = document.createElement('span');
                                   var textdesc = document.createTextNode("Source node ");         // Create a text node
                                   var select = document.createElement('select');
                                   select.multiple = true;
@@ -191,7 +191,7 @@ function listVideos(user) {
                                   list.appendChild(textdesc);
                                   list.appendChild(select);
                                   list.appendChild(document.createElement('br'));
-                                  desc.appendChild(list);
+                                  desc.appendChild(list);*/
 
                             var btn = document.createElement("button");        // Create a <button> element
                             var t = document.createTextNode("Delete video");       // Create a text node
@@ -282,29 +282,22 @@ function getSelectValues(select,user) {
         for (var i=0, iLen=options.length; i<iLen; i++) {
             opt = options[i];
             console.log(user,opt.value);
-            
-            if(!opt.selected){
-            var query = db.collection('source');
+   
             var query = db.collection('source').where('user','==',user).where('video','==',opt.value);
-            query.get().then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                console.log(doc.id);
-                 db.collection("source").doc(doc.id).delete().then(function() {
-                   console.log("Document successfully deleted!");
-                   }).catch(function(error) {
-                            console.error("Error removing document: ", error);
-                            });
-                
-               });
+
+            query.get().then(function(doc) {
+                console.log(doc.exists,opt.selected)
+                if (doc.exists) {
+                   if(!opt.selected)db.collection("source").doc(doc.id).delete();
+                } else {
+                             if(opt.selected){
+                      db.collection("source").add({
+                         user: user,
+                         video: opt.value});
+                             }
+                }
             });
             
-            } else if (opt.selected) {
-                //result.push(opt.value || opt.text);
-                console.log(opt.value,opt.text);
-                db.collection("source").add({
-                    user: user,
-                    video: opt.value});
-            }
         }
     }
     //return result;
