@@ -6,7 +6,7 @@ var chunk=[];
 var chunkId=[];
 var devices=[];
 var devicesId=[];
-
+var videoList=[];
 const settings = {/* your settings... */ timestampsInSnapshots: true};
 db.settings(settings);
 var currentUID;
@@ -43,7 +43,7 @@ function onAuthStateChanged(user) {
 
   //cleanupUi();
   if (user) {
-      
+
     currentUID = user.uid;
     videoFile.disabled = false;
 
@@ -225,7 +225,7 @@ db.collection("users").get()
 		node.addEventListener("click",function(t) {
   			return "undefined" != typeof w && w.event.triggered !== t.type ? w.event.dispatch.apply(e, arguments) : void 0
 		});
-                              
+
 		var desc = document.createElement('dd');
 		var name = document.createElement('span');
 		var textdesc = document.createTextNode("User: "+doc.data().name+"\n\n");         // Create a text node
@@ -242,39 +242,93 @@ db.collection("users").get()
 		time.appendChild(textdesc);
 		time.appendChild(document.createElement('br'));
 		desc.appendChild(time);
-                 
+
       var list = document.createElement('span');
-      var textdesc = document.createTextNode("Source node ");         // Create a text node
-      var sel = document.createElement('select');
-      sel.id = 'sel'+doc.id;
-      sel.multiple = true;
-      sel.size = 5;
-      sel.addEventListener('change', getSelectValues(sel,doc.id));
+      //list.style = "margin-left: 3em;";
+      var textdesc = document.createTextNode("Source node: ");         // Create a text node
+      list.appendChild(textdesc);
+
+      var list2 = document.createElement('span');
+      list2.style = "margin-left: 2em;";
+      var textdesc1 = document.createTextNode("video");         // Create a text node
+      list2.appendChild(textdesc1);
+      var selVideo = document.createElement('select');
+      //selVideo.id = 'selVideo'+doc.id;
+      //selVideo.multiple = true;
+      //selVideo.size = 5;
       //sel.addEventListener('change', scopepreserver(sel));
       //sel.addEventListener('change', selectValue(doc.data().model))
-      chunk.forEach(function(item, index, array) {
+      videoList.forEach(function(item, index, array) {
+                      //console.log("user",item)
+                      var option = document.createElement('option');
+                      option.value = index;
+                      option.innerHTML= item;
+                      selVideo.appendChild(option);
+                    });
+
+      list2.appendChild(selVideo);
+
+      var list3 = document.createElement('span');
+      list3.style = "margin-left: 2em;";
+      var textdesc2 = document.createTextNode("chunk");         // Create a text node
+      list3.appendChild(textdesc2)
+      var selChunk = document.createElement('select');
+      selChunk.multiple = true;
+      selChunk.size = 3;
+
+      chunk[0].forEach(function(item, index, array) {
                      // console.log("user",item)
                       var option = document.createElement('option');
-                      option.value = chunkId[index];
+                      option.value = chunkId[0][index];
                       option.innerHTML= item;
-                      sel.appendChild(option);
-                      });
-      list.appendChild(textdesc);
-      list.appendChild(sel);
-      list.appendChild(document.createElement('br'));
+                      selChunk.appendChild(option);
+                    });
+      //sel.addEventListener('change', scopepreserver(sel));
+      //sel.addEventListener('change', selectValue(doc.data().model))
+      list3.appendChild(selChunk);
+
+      selVideo.addEventListener('change', selectVideo(selVideo,selChunk,doc.id));
+      selChunk.addEventListener('change', getSelectValues(selChunk,doc.id));
+
+
+      //list2.appendChild(document.createElement('br'));
       desc.appendChild(list);
-    
+      desc.appendChild(list2);
+      desc.appendChild(list3);
+
      //$('select').change(function() {alert($(this).val())})
         document.getElementById("devices").appendChild(desc);
-        
+
 
 	    });
 	});
 
 }
 
+function selectVideo(selectVideo,selectChunk,user)
+{
+  return function (){
+    var result = [];
+    var options = selectVideo && selectVideo.options;
+    var opt;
+    //console.log(options[options.selectedIndex].value);
+    while (selectChunk.options.length > 0) {
+       selectChunk.remove(0);
+    }
+
+    chunk[options[options.selectedIndex].value].forEach(function(item, index, array) {
+                   // console.log("user",item)
+                    var option = document.createElement('option');
+                    option.value = chunkId[options.selectedIndex][index];
+                    option.innerHTML= item;
+                    selectChunk.appendChild(option);
+                  });
+
+  }
+}
+
 function getSelectValues(select,user) {
-    return function () {
+    return async function () {
         var result = [];
         var options = select && select.options;
         var opt;
@@ -282,32 +336,37 @@ function getSelectValues(select,user) {
         for (var i=0, iLen=options.length; i<iLen; i++) {
             opt = options[i];
             console.log(user,opt.value);
-   
+
             var query = db.collection('source').where('user','==',user).where('video','==',opt.value);
 
-            query.get().then(function(doc) {
-                console.log(doc.exists,opt.selected)
-                if (doc.exists) {
-                   if(!opt.selected)db.collection("source").doc(doc.id).delete();
-                } else {
-                             if(opt.selected){
-                      db.collection("source").add({
-                         user: user,
-                         video: opt.value});
-                             }
-                }
-            });
-            
+            await deleteOpt(query);
+            if(opt.selected){
+              db.collection("source").add({
+                 user: user,
+                 video: opt.value});
+            }
         }
-    }
-    //return result;
+
+     }
 }
 
-function scopepreserver(sel) {
-    return function () {
-        alert(sel.id);
-    };
+
+async function deleteOpt(queryRef) {
+    console.log("start")
+    try {
+       var allCitiesSnapShot = await queryRef.get();
+       allCitiesSnapShot.forEach(doc => {
+           console.log(doc.id, '=>', doc.data().name);
+           db.collection('source').doc(doc.id).delete();
+       });
+       console.log("end")
+   }
+   catch (err) {
+       console.log('Error getting documents', err);
+   }
 }
+
+
 function deleteVideo(videoName)
 {
 var query = db.collection('videos').where('title','==',videoName);
@@ -331,6 +390,8 @@ var query = db.collection('videos').where('title','==',videoName);
   });
 
 }
+
+
 /**
  * Handles the sign in button press.
  */
@@ -382,18 +443,31 @@ window.addEventListener('load', function() {
 
 function loadChunks()
 {
-    /*jQuery(document).ready(function($) {
-            var comboTree1 = $('#example').comboTree({ source : myData,isMultiple: true});
-    });*/
+
     var videoRef = db.collection("videos").orderBy("fileName","asc");
-    //var videoRef = db.collection("videos");
+    var videoTitle = "";
+    var i=-1;
     videoRef.get().then(function(querySnapshot) {
             querySnapshot.forEach(function(doc) {
-            //console.log(doc.data())
-            if(doc.data().chunk!=0){
-                chunk.push(doc.data().desc+" chunk "+doc.data().chunk);
-                chunkId.push(doc.id);
-            }
+              //console.log(doc.data())
+              if(videoTitle!=doc.data().title){
+                i++;
+
+                console.log("Videotitle ",doc.data().title);
+                //chunk[i] = new Arrray(doc.data().totalChunk);
+                //chunkId[i] = new Arrray(doc.data().totalChunk);
+                //chunk[i] =
+                chunk[i] = [];
+                chunkId[i] = [];
+                videoTitle = doc.data().title;
+              }
+              if(doc.data().chunk==0){
+                //console.log("Videotitle ",doc.data().title+": "+doc.data().desc)
+                videoList.push(doc.data().title+": "+doc.data().desc);
+              } else if(doc.data().chunk!=0){
+                  chunk[i].push(doc.data().desc+" chunk "+doc.data().chunk);
+                  chunkId[i].push(doc.id);
+              }
             });
     });
 
@@ -413,7 +487,7 @@ function loadDevices()
                 }
           });
     });
-    
+
 }
 /**
  * Displays the given section element and changes styling of the given button.
@@ -429,5 +503,3 @@ function showSection(sectionElement) {
   }
 
 }
-
-
