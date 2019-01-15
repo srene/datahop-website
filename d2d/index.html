@@ -8,7 +8,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="generator" content="DataHop CMS" />
-        <meta name="description" content="A decentralised, user-operated content distribution network leveraging the power of users’ mobile devices and device to device connectivity." />
+        <meta name="description" content="A digital marketplace for incentivised content propagation and delivery at the edge of the network." />
 
         <link rel="apple-touch-icon" sizes="180x180" href="../user/themes/data-hop/images/favicons/yellow/apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="../user/themes/data-hop/images/favicons/yellow/favicon-32x32.png">
@@ -21,8 +21,8 @@
         <meta name="theme-color" content="#ffffff">
 
         <meta property="og:type" content="website">
-        <meta property="og:title" content="DataHop | Let’s democratise content distribution.">
-        <meta property="og:description" content="A decentralised, user-operated content distribution network leveraging the power of users’ mobile devices and device to device connectivity.">
+        <meta property="og:title" content="DataHop | A Decentralised Platform for Innovation at the Edge.">
+        <meta property="og:description" content="A digital marketplace for incentivised content propagation and delivery at the edge of the network.">
         <meta property="og:image" content="../user/themes/data-hop/images/thumbnail-home.png">
         <meta property="og:image:secure_url" content="../user/themes/data-hop/images/thumbnail-home.png">
         <meta property="og:url" content="">
@@ -197,15 +197,15 @@
                                             </li>
                                             <li class="intro__animate intro__animate--slide-right intro__animate--slide-right--4">
                                                 <a href="../reward"  >
-                                                    <span>Reward Tokens</span>
+                                                    <span>Consensus Protocol</span>
                                                 </a>
                                             </li>
                                             <li class="intro__animate intro__animate--slide-right intro__animate--slide-right--4">
                                                 <a href="../usecase"  >
-                                                    <span>Use cases</span>
+                                                    <span>Use Cases</span>
                                                 </a>
                                             </li>
-                                            <li class="intro__animate intro__animate--slide-right intro__animate--slide-right--3">
+                                            <!--<li class="intro__animate intro__animate--slide-right intro__animate--slide-right--3">
                                                 <a href="../media"  >
                                                     <span>Media</span>
                                                 </a>
@@ -219,7 +219,7 @@
                                               <a href="https://gitlab.com/fluentic"  >
                                                     <span>Documentation</span>
                                                 </a>
-                                            </li>
+                                            </li>-->
                                             <li class="intro__animate intro__animate--slide-right intro__animate--slide-right--5">
                                                 <a href="../faq"  >
                                                     <span>FAQ</span>
@@ -256,14 +256,14 @@
                                 <img class="" src="../user/themes/data-hop/images/Users_Top01.svg" alt="Share phone memory">
                                     </div>
                             <div class="slide">
-                                <img class="" src="../user/themes/data-hop/images/Users_Top03.svg" alt="Exchange content of your interest">
-                                    </div>
-                            <!--<div class="slide">
                                 <img class="" src="../user/themes/data-hop/images/Users_Top02.svg" alt="Distribute Content as you move">
-                              </div>-->
-                            <div class="slide">
+                              </div>
+                              <div class="slide">
+                                  <img class="" src="../user/themes/data-hop/images/Users_Top03.svg" alt="Receive the content of your interest">
+                                      </div>
+                            <!--<div class="slide">
                                 <img class="" src="../user/themes/data-hop/images/Users_Top04.svg" alt="Get compensated">
-                                    </div>
+                              </div>-->
                         </div>
                     </div>
                     <div class="steps__section steps__section--count col-8 col-md-8">
@@ -292,17 +292,18 @@
                                 <p class="p">Allocating 1GB (of unused memory) to DataHop you can store and distribute a whole 1h movie. The aggregate storage capacity at the edge of the network (i.e., in users' mobile and WiFi devices) is more than the storage capacity of a server farm - we just need to connect the right dots at the right time.</p>
                             </div>
                             <div class="slide">
-                                <h3 class="h3">Exchange content of your interest</h3>
-                                <p class="p">Effectively you store-carry-and-forward content and act as a data mule as you move around the city. There are hundreds of transfer opportunities in places such as trains, restaurants, coffee shops and workplaces. You’re not just connected to the network - you can be part of the network.</p>
-                            </div>
-                            <!--<div class="slide">
                                 <h3 class="h3">Distribute Content as you move</h3>
-                                <p class="p">The more you move in crowded areas and the more memory you have contributed to the system, the more content you share with others transparently. In turn, the reward you receive for your contribution to the system increases accordingly. </p>
-                            </div>-->
+                                <p class="p">Effectively you store-carry-and-forward content and act as a data mule as you move around the city. There are hundreds of transfer opportunities in places such as trains, restaurants, coffee shops and workplaces. You’re not just connected to the network - you can be part of the network. </p>
+                            </div>
                             <div class="slide">
+                                <h3 class="h3">Receive content of your interest</h3>
+                                <p class="p">Receive the content from other users around without using your data plan or requiring WiFi connectivity. Get your favourite content locally and free</p>
+                            </div>
+
+                            <!--<div class="slide">
                                 <h3 class="h3">Get compensated</h3>
                                 <p class="p">The more you move in crowded areas and the more memory you have contributed to the system, the more content you share with others transparently. In turn, the reward you receive for your contribution to the system increases accordingly. </p>
-                            </div>
+                            </div>-->
                         </div>
                         <a class="steps__next big-icon" href="#features">
                             <svg class="icon arrow arrow--right animated " mlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
@@ -316,7 +317,7 @@
         </section>
 
         <!-- Features -->
-        <section id="features" class="section">
+        <section id="features" class="section--blue section">
             <div class="container-fluid">
                 <div class="col-group">
                     <div class="col-8">
@@ -325,33 +326,64 @@
                         </h2>
                     </div>
                 </div>
+                <style type="text/css">
+                li.a  {
+                  list-style: square inside ;
+                }
+                li.b  {
+                  list-style: circle inside ;
+                  margin-left: 10px;
+                }
+                </style>
                 <div class="col-group section__container">
-                    <div class="feature section__unit section__unit--one-third col-lg-2">
+                    <div class="feature section__unit section__unit--one-fouth col-lg-2">
                         <div class="section__unit-content">
                             <img src="../user/themes/data-hop/images/Users_Features01.svg" alt="Energy consumption">
-                                <h3 class="h3 h3--margin">Energy consumption kept to a minimum</h3>
-                                <p class="p">Our sophisticated D2D connectivity module guarantees that you won’t spend more than 10% per 12hrs of participating in the system.</p>
+                                <h3 class="h3 h3--margin">Minimum Battery Consumption</h3>
+                                <!--<p class="p">Our sophisticated D2D connectivity module guarantees that you won’t spend more than 10% per 12hrs of participating in the system.</p>-->
+                                <ul>
+                                  <li class="a">Energy-efficient background mode</li>
+                                  <li class="a">< 10% for 12 hours</li>
+                                </ul>
                                 </div>
                     </div>
-                    <div class="feature section__unit section__unit--one-third col-lg-2">
+                    <div class="feature section__unit section__unit--one-fourth col-lg-2">
                         <div class="section__unit-content">
                             <img src="../user/themes/data-hop/images/Users_Features02.svg" alt="Privacy">
-                                <h3 class="h3 h3--margin">No privacy or DRM violations</h3>
-                                <p class="p">All content is encrypted and you can only watch content you are entitled to, i.e., based on subscription and DRM policies. Transfers happen between anonymised node IDs - we don’t care who you transferred content to, only how many transfers you did.</p>
+                                <h3 class="h3 h3--margin">No privacy violations</h3>
+                                <ul>
+                                  <li class="a">All content is encrypted</li>
+                                  <li class="a">Nothing uploaded to remote servers</li>
+                                </ul>
                                 </div>
                     </div>
-                    <div class="feature section__unit section__unit--one-third col-lg-2">
+                    <div class="feature section__unit section__unit--one-fourth col-lg-2">
+                        <div class="section__unit-content">
+                            <img src="../user/themes/data-hop/images/Publishers_Features01.svg" alt="Privacy">
+                                <h3 class="h3 h3--margin">No Location Tracking</h3>
+                                <!--<p class="p">All content is encrypted and you can only watch content you are entitled to, i.e., based on subscription and DRM policies. Transfers happen between anonymised node IDs - we don’t care who you transferred content to, only how many transfers you did.</p>-->
+                                <ul>
+                                  <li class="a">Location is irrelevant</li>
+                                  <li class="a">Connections are local</li>
+                                </ul>
+                                </div>
+                    </div>
+                    <div class="feature section__unit section__unit--one-fourth col-lg-2">
                         <div class="section__unit-content">
                             <img src="../user/themes/data-hop/images/Users_Features03.svg" alt="Connectivity">
-                                <h3 class="h3 h3--margin">Get your content even without connectivity</h3>
-                                <p class="p">You will have access to the content of your interest even if connectivity is not available, without consuming your mobile data.</p>
+                                <h3 class="h3 h3--margin">Consume local without charges</h3>
+                                <ul>
+                                  <li class="a">No connectivity requirements</li>
+                                  <li class="a">No data charges</li>
+                                </ul>
+                                <!--<p class="p">You will have access to the content of your interest even if connectivity is not available, without consuming your mobile data.</p>-->
                                 </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="technology" class="section section--blue">
+        <!--<section id="technology" class="section section--blue">
             <div class="container-fluid">
                 <div class="col-group section__container">
                     <div class="section__unit section__unit--left col-8 col-lg-4">
@@ -364,9 +396,9 @@
                                     </div>
                             <h3 class="h3 h3--margin">Energy efficient Information-centric Connectivity</h3>
                             <p class="p">
-                            <!--It is impossible to prove (securely, privately and deterministically) that a D2D transfer has happened.
+                            <toremove>It is impossible to prove (securely, privately and deterministically) that a D2D transfer has happened.
                             <br><br> We therefore, designed a sophisticated Proof-of-Transfer consensus algorithm, based on Progressive Mining. Effectively, receiving devices send a certificate to the sender after receiving the content.
-                          -->
+                          </toremove>
                           DataHop devices connect only when they have content to transfer to each other and not randomly to
                           any device in the vicinity. This is an important feature which improves performance
                           significantly, but also keeps energy consumption at low levels.
@@ -387,14 +419,14 @@
                                Users are authenticated periodically in order to avoid any impersonation attack and no private information can be leaked from the
                               D2D communications. Our distibuted platform is robust to any DoS attack
                               giving full availability to users.
-                            <!--As nodes move, they form distribution trees of content transfers.
-                            In Progressive Mining, nodes are not rewarded for transferring content to their immediate encounters only, but they also get rewards for subsequent transfers in their respective distribution trees. The longer the distribution tree, the more the reward that users are entitled to. <br><br> Nodes eventually upload their activity to the blockchain to verify transactions and update their reward balance.-->
+                            <toremove>As nodes move, they form distribution trees of content transfers.
+                            In Progressive Mining, nodes are not rewarded for transferring content to their immediate encounters only, but they also get rewards for subsequent transfers in their respective distribution trees. The longer the distribution tree, the more the reward that users are entitled to. <br><br> Nodes eventually upload their activity to the blockchain to verify transactions and update their reward balance.</toremove>
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section>-->
 
         <!-- Why do all that? -->
         <!--<section class="section section--yellow">
@@ -573,12 +605,12 @@
                                 </li>
                                 <li>
                                     <a href="../reward"  >
-                                        <span>Reward Tokens</span>
+                                        <span>Consensus Protocol</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="../usecase"  >
-                                        <span>Use cases</span>
+                                        <span>Use Cases</span>
                                     </a>
                                 </li>
                                 <!--<li>
