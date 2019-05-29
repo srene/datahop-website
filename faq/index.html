@@ -247,14 +247,24 @@
 
 
         <section class="section section--page">
+
             <div class="container-fluid">
                 <div class="col-group">
                     <div class="col-8">
                         <h1 class="section__h1 h1">
                             Frequently Asked<br> Questions
                         </h1>
-                        <div class="faq">
 
+                        <div class="faq">
+<style>
+/* unvisited link */
+a:link {
+  color: blue;
+}
+a:visited {
+  color: blue;
+}
+</style>
                             <h3 class="h3 h3--margin">Network Technology</h3>
                             <dl class="list list--numbered">
                                 <dt id="technology1">What do you mean by Device-to-Device (D2D) Connectivity?</dt>
@@ -263,7 +273,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                   D2D means your phone links and exchange data with other phones in close proximity, without requiring Internet connectivity, and without spending any of your 4G data or requiring a public WiFi hotspot with Internet connectivity.
+                                   D2D means your phone links and exchanges data with other phones in close proximity, without requiring Internet connectivity, and without spending any of your cellular data or requiring a public WiFi hotspot with Internet connectivity.
                                 </span>
                                 </dd>
                                 <dt>How do you achieve seamless D2D Connectivity?</dt>
@@ -281,7 +291,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                D2D communications are encrypted and only DataHop users can access to it. Also the content transfered can be confidential and DataHop users are not going to share anything else than some storage space.
+                                All D2D transfers are encrypted, therefore, no one can eavesdrop on the content being transferred. Users can choose to be anonymous if they so wish when sharing content with others in the vicinity, increasing the privacy of end-users. Finally, no content is uploaded, stored or otherwise tracked in any central server ever. Depending on the use-case, content will also be ephemeral, meaning that it will self-destroy after some pre-determined amount of time.
                                 </span>
                                 </dd>
                                 <dt>What data do you collect?</dt>
@@ -290,7 +300,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                The only statistics that DataHop collect from its users are the transfer times and location. However all this information is anonymized and there is no record linking users id.
+                                DataHop is a privacy-preserving network. The only statistics that DataHop collects from its users are transfer statistics for the sole purpose of rewarding users for their contribution to the network. However all information is anonymised and users will be able to opt out of these statistics at the expense of not being rewarded for their contribution to the DataHop Network.
                                 </span>
                                 </dd>
                                 <!--<dt>Is DataHop a platform for video delivery only?</dt>
@@ -308,7 +318,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                DataHop make use of the Content Centric Networking paradigm to develop a new Content Centric Connectivity mechanism, where users only connect using D2D when they discover content of their own interest, regardless the destination host information.
+                                 DataHop makes use of the <a href="https://en.wikipedia.org/wiki/Content_centric_networking">Content Centric Networking</a> paradigm to develop a new Content Centric Connectivity mechanism. According to this smart connectivity solution, devices connect to each other only when they discover content of interest in the vicinity. In other words, devices connect directly to content, independently of the device where this content is stored.
                                 </span>
                                 </dd>
                                 <dt>What is Content or Data Centric Networking?</dt>
@@ -317,7 +327,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                <a href="https://en.wikipedia.org/wiki/Content_centric_networking">Content Centric Networking</a> is a new networking paradigm where endpoints in the Internet, in contrast to the typical host-oriented networking,  communicate based on named data instead of IP addresses. Content Centric Networking is agnostic to which host serves the content and only considers the required content piece that can be served by any host, that is explicitly secured by individual pieces.
+                                <a href="https://en.wikipedia.org/wiki/Content_centric_networking">Content Centric Networking</a>  is a new networking paradigm where endpoints in the Internet communicate based on explicitly-named, self-identifiable and signed data, instead of IP addresses. In Content-Centric Networking the main network-layer primitive is a content name, as compared to the host's IP address. That said, in Content-Centric Networking, users are agnostic to which host serves the content and are only interested in the content itself, which can be served by any cache or host.
                                 </span>
                                 </dd>
                             </dl>
@@ -329,17 +339,27 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                Our blockchain is a part of the <a href="https://cosmos.network/">Cosmos</a> universe and is implemented using Cosmos SDK.
+                                Our layer-2 consensus algorithm, called <a href="https://www.ee.ucl.ac.uk/~ipsaras/files/Proof_of_Prestige-icbc19.pdf">Proof-of-Prestige</a> and published at <a href="http://http://icbc2019.ieee-icbc.org/">IEEE ICBC 2019</a>, can be deployed on top of any Proof-of-Stake blockchain. The main requirement of DataHop is scalability, as DataHop requires large number of transactions. We are currently considering several options with the most prevalent one being Cosmos.
 
                                 </span>
                                 </dd>
+				<dt>What is Proof-of-Prestige?</dt>
+				<dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+            <path class="icon__path" d="M 2 2 C 2 2, 75 75, 75 75 C 75 75, 148 2, 148 2" data-path-hover="M 2 2 C 2 42.317, 34.683 75, 75 75 C 115.317 75, 148 42.317, 148 2" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
+            <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
+        </svg>
+        </a><span>
+				While  in  some  cases the proof of some utility or service can be proved, the majority of tasks are impossible to verify. This is also the case with data transfers between user devices in a D2D manner. In order to deal with such cases, we designed "Proof-of-Prestige" (PoP)—a reward system that can run on top of Proof-of-Stake blockchains. PoP introduces "prestige", which can be thought of as a kind of social capital, is a volatile resource and, in contrast to crypto-currency coins, regenerates over  time.  Prestige  can  be  gained  by  performing  useful  work, spent  when  benefiting  from  services  and  directly  translates  to users  minting  power.  PoP  is  resistant  against  Sybil  and  Collude attacks  and  can  be  used  to  reward  workers  for  completing unverifiable  tasks. You can find the related paper that provides all the details <a href="https://www.ee.ucl.ac.uk/~ipsaras/files/Proof_of_Prestige-icbc19.pdf">here</a> .
+				</span>
+				</dd>
                                 <dt>What's a simple explanation of progressive mining?</dt>
                                 <dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
             <path class="icon__path" d="M 2 2 C 2 2, 75 75, 75 75 C 75 75, 148 2, 148 2" data-path-hover="M 2 2 C 2 42.317, 34.683 75, 75 75 C 115.317 75, 148 42.317, 148 2" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                  Users are rewarded not only for their own file transfers, but also for the transfers of users they gave the file to. You can think of it as a recursive incentives scheme, similar to the technique used by the MIT team during the <a href="https://news.mit.edu/2011/red-balloons-study-102811">The Red Balloon Challenge</a>. However, our scheme is adapted to work in a digital environment and can protect against the <a href="https://en.wikipedia.org/wiki/Sybil_attack">Sybil Attack</a>.                        </span>
+As users distribute content, they naturally build distribution trees. The distribution rewards should therefore, be split between the users. According to our design, users are not only  rewarded for their immediate file transfers, but also for the transfers of their descendants in their distribution trees. You can think of it as a recursive incentives scheme, similar to the technique used by the MIT team during the <a href="https://news.mit.edu/2011/red-balloons-study-102811">The Red Balloon Challenge</a>. However, our scheme is adapted to work in a digital environment and can protect against both the <a href="https://en.wikipedia.org/wiki/Sybil_attack">Sybil Attack</a> and collude attacks. See the <a href="https://www.ee.ucl.ac.uk/~ipsaras/files/Proof_of_Prestige-icbc19.pdf">paper</a> for more information.
+                                 </span>
                                 </dd>
                                 <dt>What are the main principles of your Proof-of-X Consensus algorithm?</dt>
                                 <dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
@@ -347,7 +367,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                    Our Proof-of-X algorithm is based on Proof-of-Stake, but introduces prestige - an additional to coins resource in the network. Prestige is renewable and directly determines users' probability of minting a new block. Users can increase their amount of prestige by holding more coins or performing useful work (transfering files).
+                                 Our Proof-of-Prestige algorithm is based on Proof-of-Stake, but introduces "prestige" - an additional resource to crypto-coins. Prestige is renewable and directly determines users' probability of minting a new block. Users can increase their amount of prestige by holding more coins (as in traditional Proof-of-Stake systems), but also by performing useful work (transfering files). This is in contrast to alternative PoS systems and incentivises users to contribute to the network.
                                 </span>
                                 </dd>
                                 <!--dt>Who are the miners in your blockchain?</dt>
@@ -367,7 +387,7 @@
         </a><span>
                                     ...
                                 </span>
-                              </dd>-->
+                              </dd>
                                 <dt>Does your blockchain include fees and how many Transactions per Second can it support?</dt>
                                 <dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
             <path class="icon__path" d="M 2 2 C 2 2, 75 75, 75 75 C 75 75, 148 2, 148 2" data-path-hover="M 2 2 C 2 42.317, 34.683 75, 75 75 C 115.317 75, 148 42.317, 148 2" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
@@ -376,7 +396,7 @@
         </a><span>
                                     Our implementation directly inherits characterictis of Cosmos' Tindermint consensus protocol that can process thousands of transactions per second, with commit latencies on the order of one to two seconds.
                                 </span>
-                                </dd>
+                                </dd>-->
                             </dl>
                             <h3 class="h3 h3--margin">Security & Privacy</h3>
                             <dl class="list list--numbered">
@@ -404,10 +424,10 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                    DataHop not only supports individual content publishers, but also allows independent publishers to distribute their content and get rewarded by that without having to transfer their content rights to big companies, incresing their revenue.
+                                    DataHop not only supports individual content publishers, but also allows independent publishers to distribute their content and get rewarded by that without having to lock their content rights into monopolistic silos. 
                                 </span>
                                 </dd>
-                                <dt>Can DataHop support DRM-protected content and avoid content piracy?</dt>
+                                <!--<dt>Can DataHop support DRM-protected content and avoid content piracy?</dt>
                                 <dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
             <path class="icon__path" d="M 2 2 C 2 2, 75 75, 75 75 C 75 75, 148 2, 148 2" data-path-hover="M 2 2 C 2 42.317, 34.683 75, 75 75 C 115.317 75, 148 42.317, 148 2" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
@@ -415,14 +435,14 @@
         </a><span>
                                     DataHop filters DRM-protected content that is published without the consent of the author, and therefore it is not possible to disseminate pirate content without the creator's authorization.
                                 </span>
-                                </dd>
+                                </dd>-->
                                 <dt>Can malicious users insert content in DataHop, pretending to be legitimate content publishers?</dt>
                                 <dd><a href="#" class="list__close big-icon"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
             <path class="icon__path" d="M 2 2 C 2 2, 75 75, 75 75 C 75 75, 148 2, 148 2" data-path-hover="M 2 2 C 2 42.317, 34.683 75, 75 75 C 115.317 75, 148 42.317, 148 2" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                   Content Publishers are authenticated in DataHop, and no other users can impersonate them to publish content in their name.
+                                    Both individual and commercial content publishers are authenticated when first joining the DataHop network. Any content published subsequently is signed by the private key of the publisher (unless an individual user wishes to stay totally anonymous). Therefore, any content propagated in the DataHop network is verified (towards the signature of its publisher) and malicious users cannot impersonate others.
                                 </span>
                                 </dd>
                                 <dt>Can DataHop support subscription-based (i.e., premium) content?</dt>
@@ -443,7 +463,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-        			Any smartphone device that downloads the DataHop app can join the network. We will release a first Android version of the app for the Testnet, but we also plan to develop an iOS version.
+        			Any smartphone device that downloads the DataHop app can join the network. We have released the first version of <a href="https://play.google.com/store/apps/details?id=network.datahop.localsharing">DataHop for Android</a>. The iOS version will be out soon and we are also building a laptop version of DataHop.
                                 </span>
                                 </dd>
                                 <dt>How much can I earn?</dt>
@@ -452,8 +472,9 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                DataHop users can earn money depending on how many periodic transfers they do, but also depending in how many times the content they transfered is disseminated by other users.
-        			The reward they get is higher when they transfer content that will be very popular but no one has the content yet, compared with popular content that everyone already received 			so it is no longer of their interest. In the link you can find a reward users calculator.
+                                DataHop users earn money depending on how active they are (i.e., how many transfers they do), but also depending on how many times the content they transferred is disseminated further by other users in their distribution tree. The reward is higher when participating in the dissemination of content that eventually becomes popular.
+
+DataHop is creating a digital marketplace for incentivised content propagation at the edge of the network, so the dynamics of contribution to the network and the corresponding reward will be influenced by several factors.
                                 </span>
                                 </dd>
                                 <dt>What privacy guarantees does DataHop provide?</dt>
@@ -462,7 +483,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                    DataHop ensures full privacy of its users providing anonimity in the D2D communications but also blocking any access to personal users' data in the smartphones.
+                                 DataHop is a distributed virtual storage space among users' mobile devices. Data shared in the DataHop network is never uploaded to any server, hence, no "data lock-in" is present in the DataHop ecosystem. DataHop ensures full privacy of its users providing content encryption and node anonymity in D2D communications.
                                 </span>
                                 </dd>
                                 <dt>How much battery does DataHop consume for the average user?</dt>
@@ -471,7 +492,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                    Less than 10% of an average smartphone battery using DataHop during a whole day.
+                                  We have run extensive tests with our proof-of-concept prototype on several Android devices and have found that DataHop uses less than 10% of an average smartphone battery for a whole day of contributing to the network.
                                 </span>
                                 </dd>
                                 <dt>How much memory does DataHop need from the average user?</dt>
@@ -480,7 +501,7 @@
             <path class="icon__path" d="M 2 148 C 2 148, 75 75, 75 75 C 75 75, 148 148, 148 148" data-path-hover="M 2 148 C 2 107.683, 34.683 75, 75 75 C 115.317 75, 148 107.683, 148 148" fill="none" stroke="#2e343a" stroke-miterlimit="10"/>
         </svg>
         </a><span>
-                                   Users can select how much memory shares with DataHop.
+                                  It is up to each user to select how much memory to contribute to the DataHop network. The more the memory that one contributes the higher the chances of stored content being of interest to others and therefore, being rewarded for distributing content.
                                 </span>
                                 </dd>
                                 <!--<dt>Why would I join? What are the benefits of DataHop to the end-user?</dt>
