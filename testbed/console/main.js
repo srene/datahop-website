@@ -212,7 +212,7 @@ db.collection("users").get()
 	    .then(function(querySnapshot) {
 
 	    querySnapshot.forEach(function(doc) {
-        //console.log("List devices ",doc.data().model);
+        console.log("List devices ",doc.data().model);
 
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
@@ -287,8 +287,8 @@ db.collection("users").get()
       //sel.addEventListener('change', selectValue(doc.data().model))
       list3.appendChild(selChunk);
 
-      selVideo.addEventListener('change', selectVideo(selVideo,selChunk,doc.id));
-      selChunk.addEventListener('change', getSelectValues(selChunk,doc.id));
+      selVideo.addEventListener('change', selectVideo(selVideo,selChunk,doc.data().user_id));
+      selChunk.addEventListener('change', getSelectValues(selChunk,doc.data().user_id));
 
 
       //list2.appendChild(document.createElement('br'));
@@ -307,6 +307,7 @@ db.collection("users").get()
 
 function selectVideo(selectVideo,selectChunk,user)
 {
+  console.log("selectvideo"+selectVideo+" "+selectChunk+" "+user);
   return function (){
     var result = [];
     var options = selectVideo && selectVideo.options;

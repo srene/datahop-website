@@ -37,7 +37,7 @@
             <script src="/__/firebase/5.5.5/firebase-auth.js"></script>
             <script src="/__/firebase/5.5.5/firebase-firestore.js"></script>
             <script src="/__/firebase/init.js"></script>
-            
+
             <script type="text/javascript">
             var db = firebase.firestore();
             const settings = {/* your settings... */ timestampsInSnapshots: true};
@@ -81,7 +81,7 @@
                 }
                 document.getElementById('quickstart-sign-in').disabled = true;
             }
-            
+
             /**
              * Handles the sign up button press.
              */
@@ -113,8 +113,8 @@
                                                                                       });
                                                                                       // [END createwithemail]
             }
-            
-           
+
+
             /**
              * initApp handles setting up UI event listeners and registering Firebase auth listeners:
              *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
@@ -152,20 +152,20 @@
 						   }
                 });
                                                    // [END authstatelistener]
-                                                   
+
                 document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
                 document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-						   
+
             }
-            
+
             function getFormattedDate(){
                 var d = new Date();
-                
+
                 d = d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2) + " " + ('0' + d.getHours()).slice(-2) + ":" + ('0' + d.getMinutes()).slice(-2) + ":" + ('0' + d.getSeconds()).slice(-2);
-                
+
                 return d;
             }
-            
+
             window.onload = function() {
                 initApp();
             };
@@ -173,7 +173,7 @@
 </head>
 <body class="home">
 
-    
+
 <header class="header">
     <div class="header__bar">
         <div class="container-fluid">
@@ -369,7 +369,7 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
     </div>
 </header>
 
-    
+
 <!-- Intro -->
 <section class="section section--fullpage intro">
     <div class="container-fluid">
@@ -395,7 +395,7 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
                         <br><br>
                         <span>Password</span>
                         <br>
-                        
+
                         <input type="password" id="password" name="password" placeholder="Password"/>
                         <br/><br/>
                        <!-- <a href="/faq" class="button" data-text="See all frequently asked questions"><span>Log in</span></a>
@@ -412,7 +412,7 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
             Logging in...
           </div>
                     </div>
- 
+
                 </div>
             </div>
         </div>
@@ -422,7 +422,7 @@ viewBox="0 0 104.37 24" style="enable-background:new 0 0 104.37 24;" xml:space="
 
 
 
-    
+
 <footer class="footer section section--dark-grey">
     <div class="container-fluid">
         <div class="col-group">
