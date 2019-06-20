@@ -54,8 +54,8 @@ function onAuthStateChanged(user) {
     var isAnonymous = user.isAnonymous;
     var uid = user.uid;
     var providerData = user.providerData;
-    listDevices(user);
     listVideos(user);
+    listDevices(user);
     upButton.addEventListener('click', function(){upload(user);}, false);
   } else {
     // Set currentUID to null.
@@ -114,8 +114,9 @@ function upload(user){
                                                   document.getElementById('desc').value = null;
                                                   videoFile.value = null;
                                                   document.getElementById('chunk').value = null;
-             })
+                                                  location.reload();
 
+             })
         });
     }).catch(function(error) {
      // [START onfailure]
@@ -212,7 +213,7 @@ db.collection("users").get()
 	    .then(function(querySnapshot) {
 
 	    querySnapshot.forEach(function(doc) {
-        console.log("List devices ",doc.data().model);
+        //console.log("List devices ",doc.data().model);
 
 		var node = document.createElement('dt');
 		var textnode = document.createTextNode(doc.data().model);         // Create a text node
@@ -253,19 +254,27 @@ db.collection("users").get()
       var textdesc1 = document.createTextNode("video");         // Create a text node
       list2.appendChild(textdesc1);
       var selVideo = document.createElement('select');
+      //list.style.display = "none";
+      //list2.style.display = "none";
       //selVideo.id = 'selVideo'+doc.id;
       //selVideo.multiple = true;
       //selVideo.size = 5;
       //sel.addEventListener('change', scopepreserver(sel));
       //sel.addEventListener('change', selectValue(doc.data().model))
-      videoList.forEach(function(item, index, array) {
-                      //console.log("user",item)
-                      var option = document.createElement('option');
-                      option.value = index;
-                      option.innerHTML= item;
-                      selVideo.appendChild(option);
-                    });
-
+      if(videoList.length>0){
+        videoList.forEach(function(item, index, array) {
+                        //console.log("user",item)
+                        //list.style.display = "block";
+                        //list2.style.display = "block";
+                        var option = document.createElement('option');
+                        option.value = index;
+                        option.innerHTML= item;
+                        selVideo.appendChild(option);
+                      });
+      } else {
+        list.style.display = "none";
+        list2.style.display = "none";
+      }
       list2.appendChild(selVideo);
 
       var list3 = document.createElement('span');
@@ -274,20 +283,39 @@ db.collection("users").get()
       list3.appendChild(textdesc2)
       var selChunk = document.createElement('select');
       selChunk.multiple = true;
-      selChunk.size = 3;
+      selChunk.size = 5;
+      //list3.style.display = "none";
 
-      chunk[0].forEach(function(item, index, array) {
-                     // console.log("user",item)
-                      var option = document.createElement('option');
-                      option.value = chunkId[0][index];
-                      option.innerHTML= item;
-                      selChunk.appendChild(option);
-                    });
+
+      if(chunk.length>0){
+        chunk[0].forEach(function(item, index, array) {
+                        console.log("user",item)
+                        var option = document.createElement('option');
+                        option.value = chunkId[0][index];
+                        option.innerHTML= item;
+                        //option.selected = "true";
+                        selChunk.appendChild(option);
+
+                        /*db.collection("source").where("user", "==", true)
+                            .get()
+                            .then(function(querySnapshot) {
+                                querySnapshot.forEach(function(doc) {
+                                    // doc.data() is never undefined for query doc snapshots
+                                    console.log(doc.id, " => ", doc.data());
+                                });
+                            })
+                            .catch(function(error) {
+                                console.log("Error getting documents: ", error);
+                            });
+                      });*/
+      } else {
+        list3.style.display = "none";
+      }
       //sel.addEventListener('change', scopepreserver(sel));
       //sel.addEventListener('change', selectValue(doc.data().model))
       list3.appendChild(selChunk);
 
-      selVideo.addEventListener('change', selectVideo(selVideo,selChunk,doc.data().user_id));
+      selVideo.addEventListener('change', selectVideo(selVideo,selChunk,doc.id));
       selChunk.addEventListener('change', getSelectValues(selChunk,doc.data().user_id));
 
 
@@ -307,7 +335,6 @@ db.collection("users").get()
 
 function selectVideo(selectVideo,selectChunk,user)
 {
-  console.log("selectvideo"+selectVideo+" "+selectChunk+" "+user);
   return function (){
     var result = [];
     var options = selectVideo && selectVideo.options;
@@ -318,7 +345,7 @@ function selectVideo(selectVideo,selectChunk,user)
     }
 
     chunk[options[options.selectedIndex].value].forEach(function(item, index, array) {
-                   // console.log("user",item)
+                    //console.log("user",item,index)
                     var option = document.createElement('option');
                     option.value = chunkId[options.selectedIndex][index];
                     option.innerHTML= item;
@@ -336,7 +363,7 @@ function getSelectValues(select,user) {
 
         for (var i=0, iLen=options.length; i<iLen; i++) {
             opt = options[i];
-            console.log(user,opt.value);
+            //console.log(user,opt.value);
 
             var query = db.collection('source').where('user','==',user).where('video','==',opt.value);
 
@@ -382,6 +409,7 @@ var query = db.collection('videos').where('title','==',videoName);
       // Delete the file
       desertRef.delete().then(function() {
         console.log("File deleted successfully");
+        location.reload();
       }).catch(function(error) {
         console.error(error);
         // Uh-oh, an error occurred!
@@ -466,11 +494,18 @@ function loadChunks()
                 //console.log("Videotitle ",doc.data().title+": "+doc.data().desc)
                 videoList.push(doc.data().title+": "+doc.data().desc);
               } else if(doc.data().chunk!=0){
+                //console.log("Videotitle ",doc.data().desc+": "+doc.data().chunk)
                   chunk[i].push(doc.data().desc+" chunk "+doc.data().chunk);
                   chunkId[i].push(doc.id);
               }
+
+              chunk.forEach(function(item, index, array) {
+                              //console.log("user",item)
+                              chunk[index].sort();
+                            });
             });
     });
+
 
 }
 
