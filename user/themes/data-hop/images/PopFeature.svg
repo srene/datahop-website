@@ -11,7 +11,7 @@
    viewBox="0 0 140 106"
    version="1.1"
    sodipodi:docname="PopFeature.svg"
-   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
    width="140"
    height="106">
   <metadata
@@ -22,7 +22,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,15 +37,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="944"
+     inkscape:window-width="1920"
+     inkscape:window-height="1025"
      id="namedview118"
      showgrid="false"
-     inkscape:zoom="1.5766423"
-     inkscape:cx="234.01169"
-     inkscape:cy="191.00413"
+     inkscape:zoom="4.4594178"
+     inkscape:cx="86.766526"
+     inkscape:cy="96.23221"
      inkscape:window-x="0"
-     inkscape:window-y="1"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:current-layer="Layer_1" />
   <style
@@ -143,7 +143,7 @@
   </g>
   <g
      id="g180"
-     transform="matrix(0.31258612,0,0,0.3093756,-126.40794,61.127112)">
+     transform="matrix(0.35113992,0,0,0.36306977,-151.03877,62.495191)">
     <g
        transform="translate(0,-136)"
        id="file3">
