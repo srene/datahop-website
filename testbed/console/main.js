@@ -306,8 +306,8 @@ db.collection("users").get()
                             })
                             .catch(function(error) {
                                 console.log("Error getting documents: ", error);
-                            });
-                      });*/
+                            });*/
+                      });
       } else {
         list3.style.display = "none";
       }
